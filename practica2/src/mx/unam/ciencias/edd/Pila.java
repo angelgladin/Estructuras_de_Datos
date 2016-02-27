@@ -10,6 +10,12 @@ public class Pila<T> extends MeteSaca<T> {
      * @param elemento el elemento a agregar.
      */
     @Override public void mete(T elemento) {
-        // Aquí va su código.
+    	Nodo nodo = new Nodo(elemento);
+    	if(cabeza == null) {
+    		cabeza = rabo = nodo;
+    	} else{
+    		nodo.siguiente = cabeza;
+    		cabeza = nodo;
+    	}
     }
 }

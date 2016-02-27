@@ -22,7 +22,7 @@ public abstract class MeteSaca<T> {
          * @param elemento el elemento del nodo.
          */
         public Nodo(T elemento) {
-            // Aquí va su código.
+            this.elemento = elemento;
         }
     }
 
@@ -30,8 +30,6 @@ public abstract class MeteSaca<T> {
     protected Nodo cabeza;
     /** El rabo de la estructura. */
     protected Nodo rabo;
-    /** El número de elementos en la estructra. */
-    protected int elementos;
 
     /**
      * Agrega un elemento al extremo de la estructura.
@@ -45,7 +43,13 @@ public abstract class MeteSaca<T> {
      * @throws NoSuchElementException si la estructura está vacía.
      */
     public T saca() {
-        // Aquí va su código.
+        if(cabeza == null) throw new NoSuchElementException();
+        Nodo aux = cabeza;
+        if(cabeza == rabo)
+            cabeza = rabo = null;
+        else
+            cabeza = cabeza.siguiente;
+        return aux.elemento;
     }
 
     /**
@@ -55,7 +59,8 @@ public abstract class MeteSaca<T> {
      * @throws NoSuchElementException si la estructura está vacía.
      */
     public T mira() {
-        // Aquí va su código.
+        if(cabeza == null) throw new NoSuchElementException();
+        return cabeza.elemento;
     }
 
     /**
@@ -64,7 +69,7 @@ public abstract class MeteSaca<T> {
      *         <tt>false</tt> en otro caso.
      */
     public boolean esVacia() {
-        // Aquí va su código.
+        return cabeza == null;
     }
 
     /**
@@ -75,9 +80,20 @@ public abstract class MeteSaca<T> {
      *         mismo orden; <code>false</code> en otro caso.
      */
     @Override public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        
         @SuppressWarnings("unchecked") MeteSaca<T> m = (MeteSaca<T>)o;
-        // Aquí va su código.
+        Nodo n1 = m.cabeza;
+        Nodo n2 = cabeza;
+        while(n1 != null && n2 != null){
+            if(!n1.elemento.equals(n2.elemento)) return false;
+            n1 = n1.siguiente;
+            n2 = n2.siguiente;
+        }
+        //Al final, si es la estructura con los primeros elementos al inicio
+        //pero diferente longitud, no son iguales.
+        if(n1 != null || n2 != null) return false;
+        
+        return true;
     }
 }
