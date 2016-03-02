@@ -46,13 +46,14 @@ public class Arreglos {
      * @param a un arreglo cuyos elementos son comparables.
      */
     public static <T extends Comparable<T>> void selectionSort(T[] a) {
-        for (int i = 0; i < a.length; i++)
-            for (int j = i; j < a.length; j++)
-                if(a[j].compareTo(a[i]) < 0){
-                    T aux = a[j];
-                    a[j] = a[i];
-                    a[i] = a[j];
-                }
+    	int min = -1;
+        for (int i = 0; i < a.length-1; i++){
+        	min = i;
+            for (int j = i+1; j < a.length; j++)
+                if (a[j].compareTo(a[min]) < 0)
+					min = j;
+            intercambia(a, i, min);
+        }
     }
 
     /**
