@@ -29,7 +29,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * @param elemento el elemento del vértice.
          */
         public Vertice(T elemento) {
-            // Aquí va su código.
+            this.elemento = elemento;
         }
 
         /**
@@ -37,7 +37,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * @return una representación en cadena del vértice.
          */
         public String toString() {
-            // Aquí va su código.
+            return elemento.toString();
         }
 
         /**
@@ -46,7 +46,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          *         <tt>false</tt> en otro caso.
          */
         @Override public boolean hayPadre() {
-            // Aquí va su código.
+            return padre != null;
         }
 
         /**
@@ -55,7 +55,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          *         <tt>false</tt> en otro caso.
          */
         @Override public boolean hayIzquierdo() {
-            // Aquí va su código.
+            return izquierdo != null;
         }
 
         /**
@@ -64,7 +64,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          *         <tt>false</tt> en otro caso.
          */
         @Override public boolean hayDerecho() {
-            // Aquí va su código.
+            return derecho != null;
         }
 
         /**
@@ -73,7 +73,9 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * @throws NoSuchElementException si el vértice no tiene padre.
          */
         @Override public VerticeArbolBinario<T> getPadre() {
-            // Aquí va su código.
+            if (padre == null)
+                throw new NoSuchElementException();
+            return padre;
         }
 
         /**
@@ -82,7 +84,9 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * @throws NoSuchElementException si el vértice no tiene izquierdo.
          */
         @Override public VerticeArbolBinario<T> getIzquierdo() {
-            // Aquí va su código.
+            if (izquierdo == null)
+                throw new NoSuchElementException();
+            return izquierdo;
         }
 
         /**
@@ -91,7 +95,9 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * @throws NoSuchElementException si el vértice no tiene derecho.
          */
         @Override public VerticeArbolBinario<T> getDerecho() {
-            // Aquí va su código.
+            if (derecho == null)
+                throw new NoSuchElementException();
+            return derecho;
         }
 
         /**
@@ -99,7 +105,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * @return el elemento al que apunta el vértice.
          */
         @Override public T get() {
-            // Aquí va su código.
+            return elemento;
         }
 
         /**
@@ -108,17 +114,28 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * sobrecargar el método {@link Vertice#equals}.
          * @param o el objeto con el cual se comparará el vértice.
          * @return <code>true</code> si el objeto es instancia de la clase
-         *         {@link Vertice}, su elemento es igual al elemento de éste
+         *         {@link Vertie}, su elemento es igual al elemento de éste
          *         vértice, y los descendientes de ambos son recursivamente
          *         iguales; <code>false</code> en otro caso.
          */
         @Override public boolean equals(Object o) {
-            if (o == null)
-                return false;
-            if (getClass() != o.getClass())
+            if (o == null || raiz == null || getClass() != o.getClass())
                 return false;
             @SuppressWarnings("unchecked") Vertice vertice = (Vertice)o;
-            // Aquí va su código.
+            return raiz.get().equals(vertice.get()) && equals(raiz.izquierdo, vertice.izquierdo)
+                && equals(raiz.derecho, vertice.derecho);
+        }
+
+        private boolean equals(Vertice i, Vertice d) {
+            //En el caso de que vertices de un nodo y ambos no tengas hijos.
+            if (i == null && d == null)
+                return true;
+            //Si los vertices hijos son diferentes.
+            else if (i != null && d == null || i == null && d != null)
+                return false;
+            //Compara el elemento y despues a sus hijos por izquierda y
+            return i.get().equals(d.get()) && equals(i.izquierdo, d.izquierdo)
+                && equals(i.derecho, d.derecho);
         }
     }
 
@@ -141,7 +158,8 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      *        binario.
      */
     public ArbolBinario(Coleccion<T> coleccion) {
-        // Aquí va su código.
+        for (T e : coleccion)
+            agrega(e);
     }
 
     /**
@@ -163,15 +181,21 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      * @return la profundidad del árbol.
      */
     public int profundidad() {
-        // Aquí va su código.
+        return profundidad(raiz);
     }
-
+    
+    private int profundidad(Vertice vertice){
+        if (vertice == null)
+            return -1;
+        return 1 + Math.max(profundidad(vertice.izquierdo), profundidad(vertice.derecho));
+    }
+    
     /**
      * Regresa el número de elementos que se han agregado al árbol.
      * @return el número de elementos en el árbol.
      */
     public int getElementos() {
-        // Aquí va su código.
+        return elementos;
     }
 
     /**
@@ -179,7 +203,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      * @return el vértice que contiene el último elemento agregado al árbol.
      */
     public VerticeArbolBinario<T> getUltimoVerticeAgregado() {
-        // Aquí va su código.
+        return ultimoAgregado;
     }
 
     /**
@@ -189,7 +213,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      *         <code>false</code> en otro caso.
      */
     @Override public boolean contiene(T elemento) {
-        // Aquí va su código.
+        return busca(elemento) != null;
     }
 
     /**
@@ -213,7 +237,13 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      *         el árbol; <code>null</code> en otro caso.
      */
     protected Vertice busca(Vertice vertice, T elemento) {
-        // Aquí va su código.
+        if (vertice == null)
+            return null;
+        if (vertice.get().equals(elemento))
+            return vertice;
+        Vertice mi = busca(vertice.izquierdo, elemento);
+        Vertice md = busca(vertice.derecho, elemento);
+        return mi != null ? mi : md;
     }
 
     /**
@@ -222,7 +252,9 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      * @throws NoSuchElementException si el árbol es vacío.
      */
     public VerticeArbolBinario<T> raiz() {
-        // Aquí va su código.
+        if (raiz == null)
+            throw new NoSuchElementException();
+        return raiz;
     }
 
     /**
@@ -230,7 +262,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      * @return el número de elementos en el árbol.
      */
     @Override public boolean esVacio() {
-        // Aquí va su código.
+        return raiz == null;
     }
 
     /**
@@ -240,12 +272,10 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      *         árboles son iguales; <code>false</code> en otro caso.
      */
     @Override public boolean equals(Object o) {
-        if (o == null)
-            return false;
-        if (getClass() != o.getClass())
+        if (o == null || getClass() != o.getClass())
             return false;
         @SuppressWarnings("unchecked") ArbolBinario<T> arbol = (ArbolBinario<T>)o;
-        // Aquí va su código.
+        return esVacio() || raiz.equals(arbol.raiz);
     }
 
     /**
@@ -263,7 +293,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
             /* Al inicio, no dibujamos ninguna rama. */
             rama[i] = false;
         String s = aCadena(raiz, 0, rama);
-        return s.substring(0, s.length()-1);
+        return s.substring(0, s.length() - 1);
     }
 
     /* Método auxiliar recursivo que hace todo el trabajo. */
@@ -280,7 +310,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
             s += "├─›";
             /* Recursivamente dibujamos el hijo izquierdo y sus
                descendientes. */
-            s += aCadena(vertice.izquierdo, nivel+1, rama);
+            s += aCadena(vertice.izquierdo, nivel + 1, rama);
             /* Dibujamos ramas o espacios. */
             s += espacios(nivel, rama);
             /* Dibujamos el conector al hijo derecho. */
@@ -289,7 +319,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
                nivel. */
             rama[nivel] = false;
             /* Recursivamente dibujamos el hijo derecho y sus descendientes. */
-            s += aCadena(vertice.derecho, nivel+1, rama);
+            s += aCadena(vertice.derecho, nivel + 1, rama);
         } else if (vertice.izquierdo != null) {
             /* Dibujamos ramas o espacios. */
             s += espacios(nivel, rama);
@@ -300,7 +330,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
             rama[nivel] = false;
             /* Recursivamente dibujamos el hijo izquierdo y sus
                descendientes. */
-            s += aCadena(vertice.izquierdo, nivel+1, rama);
+            s += aCadena(vertice.izquierdo, nivel + 1, rama);
         } else if (vertice.derecho != null) {
             /* Dibujamos ramas o espacios. */
             s += espacios(nivel, rama);
@@ -310,7 +340,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
                nivel. */
             rama[nivel] = false;
             /* Recursivamente dibujamos el hijo derecho y sus descendientes. */
-            s += aCadena(vertice.derecho, nivel+1, rama);
+            s += aCadena(vertice.derecho, nivel + 1, rama);
         }
         return s;
     }
