@@ -71,48 +71,34 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     @Override public void agrega(T elemento) {
         if (elemento == null)
             throw new IllegalArgumentException();
-        agrega(elemento, false);
-    }
 
-    /**
-     * Metodo auxiliar que indica que tipo de agrega sera, el logaritmico o lineal.
-     * @param elemento Elemento a agregar.
-     * @param agregaLogaritmico Booleano que dice que tipo de agrega sera,
-     *          <code>true</code> si sera logaritmico, <code>false</code> 
-     *          si sera lineal.
-     */
-    private void agrega(T elemento, boolean agregaLogaritmico) {
-        if(agregaLogaritmico){
-            //TODO: logaritmico
-        } else {
-            Vertice el = new Vertice(elemento);
-            if (raiz == null)
-                raiz = ultimoAgregado = el;
-            else {
-                //Se hace una referencia a la raiz.
-                Vertice aux = raiz;
-                Cola<ArbolBinario<T>.Vertice> cola = new Cola<>();
-                //Metemos la referencia a la cola.
-                cola.mete(aux);
-                while (!cola.esVacia()) {
-                    aux = cola.saca();
-                    //Si el elemento que sacamos de la cola, osea aux, sus hijos
-                    //son nulos los pondremos como hijo izquierdo o derecho.
-                    if (!aux.hayIzquierdo() || !aux.hayDerecho()){
-                        el.padre = aux;
-                        if (!aux.hayIzquierdo())
-                            ultimoAgregado = aux.izquierdo = el;
-                        else if (!aux.hayDerecho())
-                            ultimoAgregado = aux.derecho = el;
-                        //Decimos quien es el ultimo agregado.
-                        break;           
-                    }
+        Vertice el = new Vertice(elemento);
+        if (raiz == null)
+            raiz = ultimoAgregado = el;
+        else {
+            //Se hace una referencia a la raiz.
+            Vertice aux = raiz;
+            Cola<ArbolBinario<T>.Vertice> cola = new Cola<>();
+            //Metemos la referencia a la cola.
+            cola.mete(aux);
+            while (!cola.esVacia()) {
+                aux = cola.saca();
+                //Si el elemento que sacamos de la cola, osea aux, sus hijos
+                //son nulos los pondremos como hijo izquierdo o derecho.
+                if (!aux.hayIzquierdo() || !aux.hayDerecho()) {
+                    el.padre = aux;
+                    if (!aux.hayIzquierdo())
+                        ultimoAgregado = aux.izquierdo = el;
+                    else if (!aux.hayDerecho())
+                        ultimoAgregado = aux.derecho = el;
+                    //Decimos quien es el ultimo agregado.
+                    break;
+                }
                 //Si no son nulos significa que sigue teniendo hijos, mete a
                 //los vertices izquierdos y derechos.
                 cola.mete(aux.izquierdo);
                 cola.mete(aux.derecho);
-                }//end while
-            }//end else
+            }//end while
         }
         elementos++;
     }
@@ -137,11 +123,11 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         Cola<ArbolBinario<T>.Vertice> cola = new Cola<>();
         //Metemos la raiz a la cola
         cola.mete(vertice);
-        while(!cola.esVacia()){
+        while (!cola.esVacia()) {
             vertice = cola.saca();
             //Vemos si el elemento es igual, en caso de serlo solo
             //intercambiamos el contenido del actual con el ultimoAgregado
-            if (vertice.get().equals(elemento) && !eliminado){
+            if (vertice.get().equals(elemento) && !eliminado) {
                 vertice.elemento = ultimoAgregado.elemento;
                 eliminado = true;
                 elementos--;
@@ -150,14 +136,14 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
             if (vertice != ultimoAgregado)
                 nuevoUltimo = vertice;
             //Si ya fue eliminado y va en la ultima iteracion.
-            if (eliminado && vertice == ultimoAgregado){
+            if (eliminado && vertice == ultimoAgregado) {
                 //Elimina si hay un solo elemento.
-                if(!vertice.hayPadre())
+                if (!vertice.hayPadre())
                     raiz = ultimoAgregado = null;
-                else{
+                else {
                     //Si el arbol tiene mas de un elemento.
                     ultimoAgregado = nuevoUltimo;
-                    if(esHijoIzquierdo(vertice))
+                    if (esHijoIzquierdo(vertice))
                         vertice.padre.izquierdo = null;
                     else
                         vertice.padre.derecho = null;
@@ -168,17 +154,6 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
             cola.mete(vertice.izquierdo);
             cola.mete(vertice.derecho);
         }
-    }
-
-    /**
-     * Metodo auxiliar que me indica si es un hijo izquierdo, comparando el
-     * vertice su padre el izquierdo (osea el mismo vertice),
-     * igual a el mismo
-     * @param vertice El vertice del cual se desea saber.
-     * @return <code>true</code> Si es hijo izquiero, <code>true</code> en otro caso. 
-     */
-    private boolean esHijoIzquierdo(Vertice vertice){
-        return vertice.padre.izquierdo == vertice;        
     }
 
     /**

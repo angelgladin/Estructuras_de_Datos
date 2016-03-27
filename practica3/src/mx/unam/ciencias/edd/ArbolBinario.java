@@ -374,4 +374,39 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
         Vertice v = (Vertice)vertice;
         return v;
     }
+
+    protected boolean esHoja(Vertice vertice){
+        return !vertice.hayDerecho() && !vertice.hayIzquierdo();
+    }
+
+    protected boolean soloTieneUnHijo(Vertice vertice){
+        return !vertice.hayDerecho() && vertice.hayIzquierdo() || vertice.hayDerecho() && !vertice.hayDerecho() ;
+    }
+
+    protected boolean tieneAmbosHijos(Vertice vertice){
+        return vertice.hayDerecho() && vertice.hayIzquierdo();
+    }
+
+    protected boolean esRaiz(Vertice vertice){
+        return vertice == raiz;
+    }
+
+    /**
+     * Metodo auxiliar que me indica si es un hijo izquierdo, comparando el
+     * vertice su padre el izquierdo (osea el mismo vertice),
+     * igual a el mismo
+     * @param vertice El vertice del cual se desea saber.
+     * @return <code>true</code> Si es hijo izquiero, <code>false</code> en otro caso. 
+     */
+    protected boolean esHijoIzquierdo(Vertice vertice){
+        if(!vertice.hayPadre())
+            return false;
+        return vertice.padre.izquierdo == vertice;        
+    }
+
+    protected boolean esHijoDerecho(Vertice vertice){
+        if(!vertice.hayPadre())
+            return false;
+        return vertice.padre.derecho == vertice;        
+    }
 }
