@@ -19,7 +19,8 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         /* Constructor que recibe la raíz del árbol. */
         public Iterador() {
             cola = new Cola<>();
-            cola.mete(raiz);
+            if(raiz != null)
+                cola.mete(raiz);
         }
 
         /* Nos dice si hay un elemento siguiente. */
@@ -151,8 +152,10 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
             }
             //En el caso de que no lo haya encontrado, mete a sus hijos.
             //En la cola cuando de le pasa un elemento nulo solo hace un return.
-            cola.mete(vertice.izquierdo);
-            cola.mete(vertice.derecho);
+            if(vertice.izquierdo != null)
+                cola.mete(vertice.izquierdo);
+            if(vertice.derecho != null)
+                cola.mete(vertice.derecho);
         }
     }
 

@@ -43,9 +43,10 @@ public abstract class MeteSaca<T> {
      * @throws NoSuchElementException si la estructura está vacía.
      */
     public T saca() {
-        if(cabeza == null) throw new NoSuchElementException();
+        if (cabeza == null)
+            throw new NoSuchElementException();
         Nodo aux = cabeza;
-        if(cabeza == rabo)
+        if (cabeza == rabo)
             cabeza = rabo = null;
         else
             cabeza = cabeza.siguiente;
@@ -59,7 +60,8 @@ public abstract class MeteSaca<T> {
      * @throws NoSuchElementException si la estructura está vacía.
      */
     public T mira() {
-        if(cabeza == null) throw new NoSuchElementException();
+        if (cabeza == null)
+            throw new NoSuchElementException();
         return cabeza.elemento;
     }
 
@@ -81,12 +83,12 @@ public abstract class MeteSaca<T> {
      */
     @Override public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        
+
         @SuppressWarnings("unchecked") MeteSaca<T> m = (MeteSaca<T>)o;
         Nodo n1 = m.cabeza;
         Nodo n2 = cabeza;
-        while(n1 != null && n2 != null){
-            if(!n1.elemento.equals(n2.elemento)) return false;
+        while (n1 != null && n2 != null) {
+            if (!n1.elemento.equals(n2.elemento)) return false;
             n1 = n1.siguiente;
             n2 = n2.siguiente;
         }

@@ -226,6 +226,8 @@ public class ArbolBinarioOrdenado<T extends Comparable<T>> extends ArbolBinario<
                 vertice.padre.izquierdo = verticeIzq;
             else
                 vertice.padre.derecho = verticeIzq;
+        else
+            raiz = verticeIzq;
 
         vertice.izquierdo = verticeIzq.derecho;
         if(verticeIzq.hayDerecho())
@@ -257,6 +259,10 @@ public class ArbolBinarioOrdenado<T extends Comparable<T>> extends ArbolBinario<
                 vertice.padre.izquierdo = verticeDer;
             else
                 vertice.padre.derecho = verticeDer;
+        //En caso que sea raiz
+        else
+            raiz = verticeDer;
+
         //El vertice a girar su hijo derecho es el vertice izquierdo del
         //verticeDer.izquierdo, tambien no nos preocupamos si es null.
         vertice.derecho = verticeDer.izquierdo;

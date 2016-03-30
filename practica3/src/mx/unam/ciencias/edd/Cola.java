@@ -10,14 +10,15 @@ public class Cola<T> extends MeteSaca<T> {
      * @param elemento el elemento a agregar.
      */
     @Override public void mete(T elemento) {
-        if(elemento == null)
-            return;
-    	Nodo nodo = new Nodo(elemento);
-    	if(rabo == null) {
-    		rabo = cabeza = nodo;
-    	} else{
+        if (elemento == null)
+            throw new IllegalArgumentException();
+
+        Nodo nodo = new Nodo(elemento);
+        if (rabo == null)
+            rabo = cabeza = nodo;
+        else {
             rabo.siguiente = nodo;
             rabo = rabo.siguiente;
-		}
+        }
     }
 }
