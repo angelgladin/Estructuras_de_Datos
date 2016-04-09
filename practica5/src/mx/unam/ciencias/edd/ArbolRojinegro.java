@@ -429,4 +429,30 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
         return verticeRojinegro(vertice.padre.izquierdo);
     }
 
+    /**
+     * Lanza la excepción {@link UnsupportedOperationException}: los árboles AVL
+     * no pueden ser girados a la derecha por los usuarios de la clase, porque
+     * se desbalancean.
+     * @param vertice el vértice sobre el que se quiere girar.
+     * @throws UnsupportedOperationException siempre.
+     */
+    @Override public void giraDerecha(VerticeArbolBinario<T> vertice) {
+        throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
+                                                "girar a la izquierda por el " +
+                                                "usuario.");
+    }
+
+    /**
+     * Lanza la excepción {@link UnsupportedOperationException}: los árboles AVL
+     * no pueden ser girados a la izquierda por los usuarios de la clase, porque
+     * se desbalancean.
+     * @param vertice el vértice sobre el que se quiere girar.
+     * @throws UnsupportedOperationException siempre.
+     */
+    @Override public void giraIzquierda(VerticeArbolBinario<T> vertice) {
+        throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
+                                                "girar a la derecha por el " +
+                                                "usuario.");
+    }
+
 }
