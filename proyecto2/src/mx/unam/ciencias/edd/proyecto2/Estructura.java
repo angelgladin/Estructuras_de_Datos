@@ -1,6 +1,5 @@
 package mx.unam.ciencias.edd.proyecto2;
 
-
 public enum Estructura {
 	LISTA("Lista"),
 	PILA("Pila"),

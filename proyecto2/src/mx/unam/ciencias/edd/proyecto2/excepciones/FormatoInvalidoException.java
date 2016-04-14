@@ -1,4 +1,4 @@
-package mx.unam.ciencias.edd.proyecto2;
+package mx.unam.ciencias.edd.proyecto2.excepciones;
 
 
 public class FormatoInvalidoException extends IllegalArgumentException{
