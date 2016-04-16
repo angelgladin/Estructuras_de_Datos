@@ -14,8 +14,7 @@ public class GraficaEstructura {
             this.estructura = estructura;
         }
 
-        @Override
-        public String dibujaSVG() {
+        @Override public String dibujaSVG() {
             int i = 0;
 
             StringBuilder builder = new StringBuilder();

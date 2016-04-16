@@ -31,6 +31,9 @@ public class Proyecto2 {
      */
     static Lista<Integer> elementos = new Lista<>();
 
+    //ESTO ES TEMPORAL SOLAMENTE ES PARA FILTRAR LA ENTRADA Y TRATARLA EN LO QUE METO LA GRAFICA.
+    static Lista<String> relaciones = new Lista<>();
+
     public static void main(String[] args) {
 
         Estructura estructura = Estructura.NINGUNA;
@@ -47,7 +50,7 @@ public class Proyecto2 {
             else
                 br = new BufferedReader(new FileReader(args[0]));
 
-            while ((input = br.readLine()) != null && c != 2) {
+            while ((input = br.readLine()) != null) {
                 if (input.isEmpty() || c == 0 && input.charAt(0) != '#')
                     throw new FormatoInvalidoException();
                 if (c == 0) {
@@ -71,6 +74,23 @@ public class Proyecto2 {
                         break;
                 }
                 if (c == 2 && estructura == Estructura.GRAFICA) {
+                    Integer a = null, b = null;
+                    StringBuilder str = new StringBuilder();
+                    for (int i = 0; i < input.length() ; i++) {
+                        if (Character.isDigit(input.charAt(i))) {
+                            str.append(input.charAt(i));
+                        } else if (input.charAt(i) == ',' && a == null) {
+                            a = Integer.parseInt(str.toString());
+                            str = new StringBuilder();
+                        }
+                        if (input.charAt(i) == ';' || i == input.length() - 1) {
+                            b = Integer.parseInt(str.toString());
+                            relaciones.agrega("relacion ~ " + a + " con " + b + "\n");
+                            a = b = null;
+                            str = new StringBuilder();
+                        }
+                    }
+                    break;
                 }
                 c++;
             }
@@ -78,36 +98,35 @@ public class Proyecto2 {
             System.out.println(e.getMessage());
             System.exit(-1);
         }
-        agregaElementosEstructura(estructura, elementos);
 
-        System.out.println(obtenerSVG(estructura));
+        System.out.println(agregaElementosYRegresaSVG(estructura, elementos));
     }
 
-    private static void agregaElementosEstructura(Estructura estructura, Lista<Integer> elementos) {
+    private static String agregaElementosYRegresaSVG(Estructura estructura, Lista<Integer> elementos) {
+        FabricaSVG<Integer> fabricaSVG = new FabricaSVG<>(estructura);
         switch (estructura) {
+            case LISTA:
+            case COLA:
+            case PILA:
+                return fabricaSVG.obtenerPilaListaCola(elementos).dibujaSVG();
             case ARBOL_BINARIO_COMPLETO:
                 arbolBinarioCompleto = new ArbolBinarioCompleto<>(elementos);
-                break;
+                return fabricaSVG.obtenerArbolBinarioCompleto(arbolBinarioCompleto).dibujaSVG();
             case ARBOL_BINARIO_ORDENADO:
                 arbolBinarioOrdenado = new ArbolBinarioOrdenado<>(elementos);
-                break;
+                return fabricaSVG.obtenerArbolBinarioOrdenado(arbolBinarioOrdenado).dibujaSVG();
             case ARBOL_ROJINEGRO:
                 elementos.forEach(arbolRojinegro::agrega);
-                break;
+                return fabricaSVG.obtenerArbolRojinegro(arbolRojinegro).dibujaSVG();
             case ARBOL_AVL:
                 elementos.forEach(arbolAVL::agrega);
-                break;
+                return fabricaSVG.obtenerArbolAVL(arbolAVL).dibujaSVG();
             case GRAFICA:
                 //TODO
-                break;
+                return relaciones.toString();
             default:
-                break;
-        }
-    }
-
-    private static String obtenerSVG(Estructura estructura) {
-        FabricaSVG<Integer> fabricaSVG = new FabricaSVG<>(elementos);
-        return fabricaSVG.obtenerEstructura(estructura).dibujaSVG();
+                return null;
+            }
     }
 
 }
