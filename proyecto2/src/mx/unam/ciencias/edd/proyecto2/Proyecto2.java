@@ -2,6 +2,7 @@ package mx.unam.ciencias.edd.proyecto2;
 
 import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto2.excepciones.EstructuraInvalida;
+import mx.unam.ciencias.edd.proyecto2.excepciones.RelacionInvalida;
 import mx.unam.ciencias.edd.proyecto2.excepciones.FormatoInvalidoException;
 import mx.unam.ciencias.edd.proyecto2.svg.FabricaSVG;
 
@@ -26,6 +27,7 @@ public class Proyecto2 {
     static ArbolBinarioOrdenado<Integer> arbolBinarioOrdenado;
     static ArbolRojinegro<Integer> arbolRojinegro = new ArbolRojinegro<>();
     static ArbolAVL<Integer> arbolAVL = new ArbolAVL<>();
+    //static Grafica<Integer> grafica = new Grafica<>();
     /**
      * Me servira tanto para listas pilas y colas, para no  volver a repetir o crear una nueva estructura.
      */
@@ -51,9 +53,9 @@ public class Proyecto2 {
                 br = new BufferedReader(new FileReader(args[0]));
 
             while ((input = br.readLine()) != null) {
-                if (input.isEmpty() || c == 0 && input.charAt(0) != '#')
-                    throw new FormatoInvalidoException();
                 if (c == 0) {
+                    if (input.isEmpty() || input.charAt(0) != '#')
+                        throw new FormatoInvalidoException();
                     estructura = Estructura.estaEnEnum(input.substring(2).trim());
                     if (estructura == null || estructura == Estructura.NINGUNA)
                         throw new EstructuraInvalida();
@@ -76,25 +78,36 @@ public class Proyecto2 {
                 if (c == 2 && estructura == Estructura.GRAFICA) {
                     Integer a = null, b = null;
                     StringBuilder str = new StringBuilder();
+                    int elemRelacionados = 0;
                     for (int i = 0; i < input.length() ; i++) {
                         if (Character.isDigit(input.charAt(i))) {
                             str.append(input.charAt(i));
-                        } else if (input.charAt(i) == ',' && a == null) {
-                            a = Integer.parseInt(str.toString());
-                            str = new StringBuilder();
+                        } else if (input.charAt(i) == ',') {
+                            if (a == null) {
+                                a = Integer.parseInt(str.toString());
+                                str = new StringBuilder();
+                                elemRelacionados++;
+                            } else {
+                                throw new RelacionInvalida();
+                            }
                         }
                         if (input.charAt(i) == ';' || i == input.length() - 1) {
+                            elemRelacionados++;
+                            if (elemRelacionados++ != 2)
+                                throw new RelacionInvalida();
                             b = Integer.parseInt(str.toString());
                             relaciones.agrega("relacion ~ " + a + " con " + b + "\n");
+                            //grafica.conecta(a, b);
                             a = b = null;
                             str = new StringBuilder();
+                            elemRelacionados = 0;
                         }
                     }
                     break;
                 }
                 c++;
             }
-        } catch (IOException | FormatoInvalidoException | EstructuraInvalida e) {
+        } catch (IOException | FormatoInvalidoException | EstructuraInvalida | RelacionInvalida e) {
             System.out.println(e.getMessage());
             System.exit(-1);
         }
@@ -123,6 +136,7 @@ public class Proyecto2 {
                 return fabricaSVG.obtenerArbolAVL(arbolAVL).dibujaSVG();
             case GRAFICA:
                 //TODO
+                //elementos.forEach(grafica::agrega);
                 return relaciones.toString();
             default:
                 return null;
