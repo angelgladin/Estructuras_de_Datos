@@ -246,22 +246,8 @@ public class Grafica<T> implements Coleccion<T> {
      * @throws NoSuchElementException si el elemento no está en la gráfica.
      */
     public void bfs(T elemento, AccionVerticeGrafica<T> accion) {
-        if (!this.contiene(elemento))
-            throw new NoSuchElementException();
-        Vertice v = (Vertice) vertice(elemento);
         Cola<Grafica<T>.Vertice> cola = new Cola<>();
-        cola.mete(v);
-        while (!cola.esVacia()) {
-            Vertice vT = cola.saca();
-            vT.setColor(Color.ROJO);
-            accion.actua(vT);
-            for (Vertice ve : vT.vecinos)
-                if (ve.color != Color.ROJO) {
-                    ve.setColor(Color.ROJO);
-                    cola.mete(ve);
-                }
-        }
-        paraCadaVertice(vertice -> vertice.setColor(Color.NINGUNO));
+        recorrido(elemento, accion, cola);
     }
 
     /**
@@ -275,22 +261,27 @@ public class Grafica<T> implements Coleccion<T> {
      * @throws NoSuchElementException si el elemento no está en la gráfica.
      */
     public void dfs(T elemento, AccionVerticeGrafica<T> accion) {
+        Pila<Grafica<T>.Vertice> pila = new Pila<>();
+        recorrido(elemento, accion, pila);
+    }
+
+    private void recorrido(T elemento, AccionVerticeGrafica<T> accion, MeteSaca<Grafica<T>.Vertice> meteSaca){
         if (!this.contiene(elemento))
             throw new NoSuchElementException();
         Vertice v = (Vertice) vertice(elemento);
-        Pila<Grafica<T>.Vertice> pila = new Pila<>();
-        pila.mete(v);
-        while (!pila.esVacia()) {
-            Vertice vT = pila.saca();
+        meteSaca.mete(v);
+        while (!meteSaca.esVacia()) {
+            Vertice vT = meteSaca.saca();
             vT.setColor(Color.ROJO);
             accion.actua(vT);
             for (Vertice ve : vT.vecinos)
                 if (ve.color != Color.ROJO) {
                     ve.setColor(Color.ROJO);
-                    pila.mete(ve);
+                    meteSaca.mete(ve);
                 }
         }
         paraCadaVertice(vertice -> vertice.setColor(Color.NINGUNO));
+
     }
 
     /**
