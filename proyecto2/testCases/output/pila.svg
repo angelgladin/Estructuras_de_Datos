@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg height="300" width="80">
+
+
+	<g>
+		<rect x="10" y="10" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="40" y="35" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">7</text>
+	</g>
+	<g>
+		<rect x="10" y="50" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="40" y="75" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">6</text>
+	</g>
+	<g>
+		<rect x="10" y="90" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="40" y="115" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">5</text>
+	</g>
+	<g>
+		<rect x="10" y="130" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="40" y="155" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">4</text>
+	</g>
+	<g>
+		<rect x="10" y="170" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="40" y="195" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">3</text>
+	</g>
+	<g>
+		<rect x="10" y="210" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="40" y="235" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">2</text>
+	</g>
+	<g>
+		<rect x="10" y="250" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="40" y="275" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">1</text>
+	</g>
+</svg>

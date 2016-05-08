@@ -30,7 +30,7 @@ public class TestArbolBinarioCompleto {
     arbolBinarioCompletoValido(ArbolBinarioCompleto<T> arbol) {
         if (arbol.getElementos() == 0)
             return;
-        TestArbolBinario.arbolBinarioValido(arbol);
+        UtilTestArbolBinario.arbolBinarioValido(arbol);
         Assert.assertTrue(arbol.profundidad() ==
                           (int)(Math.floor(Math.log(arbol.getElementos()) /
                                            Math.log(2))));

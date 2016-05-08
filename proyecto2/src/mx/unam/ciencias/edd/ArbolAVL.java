@@ -2,7 +2,7 @@ package mx.unam.ciencias.edd;
 
 /**
  * <p>Clase para árboles AVL.</p>
- *
+ * <p>
  * <p>Un árbol AVL cumple que para cada uno de sus vértices, la diferencia entre
  * la áltura de sus subárboles izquierdo y derecho está entre -1 y 1.</p>
  */
@@ -15,11 +15,14 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
      */
     protected class VerticeAVL extends ArbolBinario<T>.Vertice {
 
-        /** La altura del vértice. */
+        /**
+         * La altura del vértice.
+         */
         public int altura;
 
         /**
          * Constructor único que recibe un elemento.
+         *
          * @param elemento el elemento del vértice.
          */
         public VerticeAVL(T elemento) {
@@ -29,6 +32,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
 
         /**
          * Regresa una representación en cadena del vértice AVL.
+         *
          * @return una representación en cadena del vértice AVL.
          */
         public String toString() {
@@ -38,33 +42,34 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
         /**
          * Compara el vértice con otro objeto. La comparación es
          * <em>recursiva</em>.
+         *
          * @param o el objeto con el cual se comparará el vértice.
          * @return <code>true</code> si el objeto es instancia de la clase
-         *         {@link VerticeAVL}, su elemento es igual al elemento de éste
-         *         vértice, los descendientes de ambos son recursivamente
-         *         iguales, y las alturas son iguales; <code>false</code> en
-         *         otro caso.
+         * {@link VerticeAVL}, su elemento es igual al elemento de éste
+         * vértice, los descendientes de ambos son recursivamente
+         * iguales, y las alturas son iguales; <code>false</code> en
+         * otro caso.
          */
         @Override public boolean equals(Object o) {
             if (o == null || raiz == null || getClass() != o.getClass())
                 return false;
-            @SuppressWarnings("unchecked") VerticeAVL vertice = (VerticeAVL)o;
+            @SuppressWarnings("unchecked") VerticeAVL vertice = (VerticeAVL) o;
             return raiz.get().equals(vertice.get()) && verticeAVL(raiz).altura == vertice.altura
-                   && equals(verticeAVL(raiz.izquierdo), verticeAVL(vertice.izquierdo))
-                   && equals(verticeAVL(raiz.derecho), verticeAVL(vertice.derecho));
+                    && equals(verticeAVL(raiz.izquierdo), verticeAVL(vertice.izquierdo))
+                    && equals(verticeAVL(raiz.derecho), verticeAVL(vertice.derecho));
         }
 
         private boolean equals(VerticeAVL a, VerticeAVL b) {
             //En el caso de que vertices de un nodo y ambos no tengas hijos.
             if (a == null && b == null)
                 return true;
-            //Si los vertices hijos son diferentes.
+                //Si los vertices hijos son diferentes.
             else if (a != null && b == null || a == null && b != null)
                 return false;
             //Compara el elemento y despues a sus hijos por izquierda y
             return a.get().equals(b.get()) && verticeAVL(a).altura == b.altura
-                   && equals(verticeAVL(a.izquierdo), verticeAVL(b.izquierdo))
-                   && equals(verticeAVL(a.derecho), verticeAVL(b.derecho));
+                    && equals(verticeAVL(a.izquierdo), verticeAVL(b.izquierdo))
+                    && equals(verticeAVL(a.derecho), verticeAVL(b.derecho));
         }
     }
 
@@ -73,6 +78,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
      * ArbolBinarioOrdenado#agrega}, y después balancea el árbol girándolo como
      * sea necesario. La complejidad en tiempo del método es <i>O</i>(log
      * <i>n</i>) garantizado.
+     *
      * @param elemento el elemento a agregar.
      */
     @Override public void agrega(T elemento) {
@@ -97,7 +103,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
 
             giraDerechaAVL(vertice);
         }
-        
+
         rebalanceo(verticeAVL(vertice.padre));
     }
 
@@ -107,10 +113,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
 
     /**
      * Regresa la altura del vértice AVL.
+     *
      * @param vertice el vértice del que queremos la altura.
      * @return la altura del vértice AVL.
      * @throws ClassCastException si el vértice no es instancia de {@link
-     *         VerticeAVL}.
+     *                            VerticeAVL}.
      */
     public int getAltura(VerticeArbolBinario<T> vertice) {
         return vertice == null ? -1 : verticeAVL(vertice).altura;
@@ -124,13 +131,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
         return getAltura(verticeAVL(vertice.izquierdo)) - getAltura(verticeAVL(vertice.derecho));
     }
 
-    private void giraIzquierdaAVL(VerticeAVL vertice){
+    private void giraIzquierdaAVL(VerticeAVL vertice) {
         super.giraIzquierda(vertice);
         cambiaAltura(vertice);
         cambiaAltura(verticeAVL(vertice.padre));
     }
 
-    private void giraDerechaAVL(VerticeAVL vertice){
+    private void giraDerechaAVL(VerticeAVL vertice) {
         super.giraDerecha(vertice);
         cambiaAltura(vertice);
         cambiaAltura(verticeAVL(vertice.padre));
@@ -140,6 +147,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
      * Elimina un elemento del árbol. El método elimina el vértice que contiene
      * el elemento, y gira el árbol como sea necesario para rebalancearlo. La
      * complejidad en tiempo del método es <i>O</i>(log <i>n</i>) garantizado.
+     *
      * @param elemento el elemento a eliminar del árbol.
      */
     @Override public void elimina(T elemento) {
@@ -163,7 +171,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
             eliminaHoja(vertice);
         else
             subirHijo(vertice);
-        
+
         rebalanceo(verticeAVL(vertice.padre));
         elementos--;
     }
@@ -172,7 +180,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
         //Si es la raiz, pone todo en null.
         if (vertice == raiz)
             raiz = ultimoAgregado = null;
-        //En otro caso solomante corta la conexion con las hojas.
+            //En otro caso solomante corta la conexion con las hojas.
         else if (esHijoIzquierdo(vertice))
             vertice.padre.izquierdo = null;
         else
@@ -193,7 +201,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
                 else
                     vertice.padre.derecho = vertice.izquierdo;
             }
-        //En el caso de que se todo un "chorizo" con hijo(s) derechos.
+            //En el caso de que se todo un "chorizo" con hijo(s) derechos.
         else
             //En este caso solamente sube y elimina el elemento que esta en la raiz.
             if (vertice == raiz) {
@@ -214,30 +222,33 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
      * Lanza la excepción {@link UnsupportedOperationException}: los árboles AVL
      * no pueden ser girados a la derecha por los usuarios de la clase, porque
      * se desbalancean.
+     *
      * @param vertice el vértice sobre el que se quiere girar.
      * @throws UnsupportedOperationException siempre.
      */
     @Override public void giraDerecha(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                                                "girar a la izquierda por el " +
-                                                "usuario.");
+                "girar a la izquierda por el " +
+                "usuario.");
     }
 
     /**
      * Lanza la excepción {@link UnsupportedOperationException}: los árboles AVL
      * no pueden ser girados a la izquierda por los usuarios de la clase, porque
      * se desbalancean.
+     *
      * @param vertice el vértice sobre el que se quiere girar.
      * @throws UnsupportedOperationException siempre.
      */
     @Override public void giraIzquierda(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                                                "girar a la derecha por el " +
-                                                "usuario.");
+                "girar a la derecha por el " +
+                "usuario.");
     }
 
     /**
      * Construye un nuevo vértice, usando una instancia de {@link VerticeAVL}.
+     *
      * @param elemento el elemento dentro del vértice.
      * @return un nuevo vértice con el elemento recibido dentro del mismo.
      */
@@ -250,13 +261,32 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
      * VerticeArbolBinario}) en vértice (visto como instancia de {@link
      * VerticeAVL}). Método auxililar para hacer esta audición en un único
      * lugar.
+     *
      * @param vertice el vértice de árbol binario que queremos como vértice AVL.
      * @return el vértice recibido visto como vértice AVL.
      * @throws ClassCastException si el vértice no es instancia de {@link
-     *         VerticeAVL}.
+     *                            VerticeAVL}.
      */
     protected VerticeAVL verticeAVL(VerticeArbolBinario<T> vertice) {
-        return (VerticeAVL)vertice;
+        return (VerticeAVL) vertice;
+    }
+
+    private boolean esHoja(Vertice vertice) {
+        return !vertice.hayDerecho() && !vertice.hayIzquierdo();
+    }
+
+    /**
+     * Metodo auxiliar que me indica si es un hijo izquierdo, comparando el
+     * vertice su padre el izquierdo (osea el mismo vertice),
+     * igual a el mismo
+     *
+     * @param vertice El vertice del cual se desea saber.
+     * @return <code>true</code> Si es hijo izquiero, <code>false</code> en otro caso.
+     */
+    private boolean esHijoIzquierdo(Vertice vertice) {
+        if (!vertice.hayPadre())
+            return false;
+        return vertice.padre.izquierdo == vertice;
     }
 
 }

@@ -43,7 +43,7 @@ public class TestArbolBinarioOrdenado {
     arbolBinarioOrdenadoValido(ArbolBinarioOrdenado<T> arbol) {
         if (arbol.getElementos() == 0)
             return;
-        TestArbolBinario.arbolBinarioValido(arbol);
+        UtilTestArbolBinario.arbolBinarioValido(arbol);
         Cola<T> cola = new Cola<T>();
         try {
             llenaColaEnOrden(arbol.raiz(), cola);
@@ -312,7 +312,7 @@ public class TestArbolBinarioOrdenado {
         for (int i = 0; i < total; i++) {
             int n = random.nextInt(100);
             arbol.agrega(n);
-            lista.agregaFinal(n);
+            lista.agrega(n);
         }
         lista = Lista.mergeSort(lista);
         int c = 0;

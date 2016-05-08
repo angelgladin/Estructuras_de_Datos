@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg height="600" width="1920">
+
+	<g><line stroke="black" stroke-width="2" x1="960.000000" y1="50.000000" x2="480.000000" y2="150.000000" /><line stroke="black" stroke-width="2" x1="960.000000" y1="50.000000" x2="1440.000000" y2="150.000000" /><line stroke="black" stroke-width="2" x1="480.000000" y1="150.000000" x2="720.000000" y2="250.000000" /><line stroke="black" stroke-width="2" x1="720.000000" y1="250.000000" x2="600.000000" y2="350.000000" /><line stroke="black" stroke-width="2" x1="1440.000000" y1="150.000000" x2="1200.000000" y2="250.000000" /><line stroke="black" stroke-width="2" x1="1440.000000" y1="150.000000" x2="1680.000000" y2="250.000000" /><line stroke="black" stroke-width="2" x1="1200.000000" y1="250.000000" x2="1320.000000" y2="350.000000" /><line stroke="black" stroke-width="2" x1="1680.000000" y1="250.000000" x2="1560.000000" y2="350.000000" /><line stroke="black" stroke-width="2" x1="1680.000000" y1="250.000000" x2="1800.000000" y2="350.000000" /><line stroke="black" stroke-width="2" x1="1560.000000" y1="350.000000" x2="1500.000000" y2="450.000000" /><line stroke="black" stroke-width="2" x1="1560.000000" y1="350.000000" x2="1620.000000" y2="450.000000" /><line stroke="black" stroke-width="2" x1="1500.000000" y1="450.000000" x2="1470.000000" y2="550.000000" /><line stroke="black" stroke-width="2" x1="1800.000000" y1="350.000000" x2="1740.000000" y2="450.000000" /><line stroke="black" stroke-width="2" x1="1800.000000" y1="350.000000" x2="1860.000000" y2="450.000000" />
+		<circle cx="960.000000" cy="50.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="960.000000" y="58.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">2</text>
+
+		<circle cx="480.000000" cy="150.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="480.000000" y="158.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">0</text>
+
+		<circle cx="720.000000" cy="250.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="720.000000" y="258.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">1</text>
+
+		<circle cx="600.000000" cy="350.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="600.000000" y="358.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">0</text>
+
+		<circle cx="1440.000000" cy="150.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1440.000000" y="158.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">4</text>
+
+		<circle cx="1200.000000" cy="250.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1200.000000" y="258.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">3</text>
+
+		<circle cx="1320.000000" cy="350.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1320.000000" y="358.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">3</text>
+
+		<circle cx="1680.000000" cy="250.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1680.000000" y="258.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">8</text>
+
+		<circle cx="1560.000000" cy="350.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1560.000000" y="358.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">6</text>
+
+		<circle cx="1500.000000" cy="450.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1500.000000" y="458.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">5</text>
+
+		<circle cx="1470.000000" cy="550.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1470.000000" y="558.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">4</text>
+
+		<circle cx="1620.000000" cy="450.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1620.000000" y="458.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">7</text>
+
+		<circle cx="1800.000000" cy="350.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1800.000000" y="358.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">9</text>
+
+		<circle cx="1740.000000" cy="450.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1740.000000" y="458.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">8</text>
+
+		<circle cx="1860.000000" cy="450.000000" r="25" fill="white" stroke="black" stroke-width="2"/>
+		<text x="1860.000000" y="458.000000" fill="black" font-family="sans-serif" font-size="25" text-anchor="middle">10</text>
+
+	</g>
+</svg>

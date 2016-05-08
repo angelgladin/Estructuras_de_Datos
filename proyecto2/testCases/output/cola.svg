@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg height="60" width="560">
+	<defs>
+		<g id="arrow">
+			<text x="0" y="0" fill="black" font-family="sans-serif" font-size="21" text-anchor="middle">→</text>
+		</g>
+	</defs>
+
+	<g>
+		<rect x="10" y="10" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="40" y="35" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">3</text>
+	</g>
+	<use xlink:href="#arrow" x="80" y="35" />
+
+	<g>
+		<rect x="90" y="10" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="120" y="35" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">4</text>
+	</g>
+	<use xlink:href="#arrow" x="160" y="35" />
+
+	<g>
+		<rect x="170" y="10" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="200" y="35" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">234</text>
+	</g>
+	<use xlink:href="#arrow" x="240" y="35" />
+
+	<g>
+		<rect x="250" y="10" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="280" y="35" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">45</text>
+	</g>
+	<use xlink:href="#arrow" x="320" y="35" />
+
+	<g>
+		<rect x="330" y="10" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="360" y="35" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">6</text>
+	</g>
+	<use xlink:href="#arrow" x="400" y="35" />
+
+	<g>
+		<rect x="410" y="10" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="440" y="35" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">0</text>
+	</g>
+	<use xlink:href="#arrow" x="480" y="35" />
+
+	<g>
+		<rect x="490" y="10" height="40" width="60" fill="white" stroke="black" stroke-width="2"/>
+		<text x="520" y="35" fill="black" font-family="sans-serif" font-size="16" text-anchor="middle">1</text>
+	</g>
+
+</svg>

@@ -132,29 +132,25 @@ public class TestArbolAVL {
     }
 
     /**
-     * Prueba unitaria para {@link ArbolBinario#equals}.
+     * Prueba unitaria para {@link ArbolAVL#getAltura}.
      */
-    @Test public void testEquals() {
-        arbol = new ArbolAVL<Integer>();
-        ArbolAVL<Integer> arbol2 = new ArbolAVL<Integer>();
-        Assert.assertTrue(arbol.equals(arbol2));
-        for (int i = 0; i < total; i++) {
-            arbol.agrega(i);
-            arbol2.agrega(i);
-        }
-        Assert.assertFalse(arbol == arbol2);
-        Assert.assertTrue(arbol.equals(arbol2));
-        arbol = new ArbolAVL<Integer>();
-        arbol2 = new ArbolAVL<Integer>();
-        for (int i = 0; i < total; i++) {
-            arbol.agrega(i);
-            if (i != total - 1)
-                arbol2.agrega(i);
-        }
-        Assert.assertFalse(arbol == arbol2);
-        Assert.assertFalse(arbol.equals(arbol2));
-        Assert.assertFalse(arbol.equals(""));
-        Assert.assertFalse(arbol.equals(null));
+    @Test public void testGetAltura() {
+        arbol.agrega(1);
+        arbol.agrega(0);
+        arbol.agrega(2);
+        VerticeArbolBinario<Integer> v = arbol.raiz();
+        Assert.assertTrue(v.get() == 1);
+        Assert.assertTrue(arbol.getAltura(v) == 1);
+        Assert.assertTrue(v.hayIzquierdo());
+        v = v.getIzquierdo();
+        Assert.assertTrue(v.get() == 0);
+        Assert.assertTrue(arbol.getAltura(v) == 0);
+        Assert.assertTrue(v.hayPadre());
+        v = v.getPadre();
+        Assert.assertTrue(v.hayDerecho());
+        v = v.getDerecho();
+        Assert.assertTrue(v.get() == 2);
+        Assert.assertTrue(arbol.getAltura(v) == 0);
     }
 
     /**
@@ -191,6 +187,32 @@ public class TestArbolAVL {
                 Assert.fail();
             } catch (UnsupportedOperationException uoe) {}
         }
+    }
+
+    /**
+     * Prueba unitaria para {@link ArbolBinario#equals}.
+     */
+    @Test public void testEquals() {
+        arbol = new ArbolAVL<Integer>();
+        ArbolAVL<Integer> arbol2 = new ArbolAVL<Integer>();
+        Assert.assertTrue(arbol.equals(arbol2));
+        for (int i = 0; i < total; i++) {
+            arbol.agrega(i);
+            arbol2.agrega(i);
+        }
+        Assert.assertFalse(arbol == arbol2);
+        Assert.assertTrue(arbol.equals(arbol2));
+        arbol = new ArbolAVL<Integer>();
+        arbol2 = new ArbolAVL<Integer>();
+        for (int i = 0; i < total; i++) {
+            arbol.agrega(i);
+            if (i != total - 1)
+                arbol2.agrega(i);
+        }
+        Assert.assertFalse(arbol == arbol2);
+        Assert.assertFalse(arbol.equals(arbol2));
+        Assert.assertFalse(arbol.equals(""));
+        Assert.assertFalse(arbol.equals(null));
     }
 
     /**
