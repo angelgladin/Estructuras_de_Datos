@@ -156,8 +156,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>>
         if (esVacio())
             throw new IllegalStateException();
         T e = arbol[0];
-        //Pregintarle a Canek esto :c
-        //e.setIndice(-1);
+        //JAVA TRABAJA CON REFERENCIAS        
         //Se intercambia el ultimo con el que esta hasta arriba
         //Se hace minHeapify() ya que no hay padre y siempre es para abajo.
         intercambia(e, arbol[--siguiente]);
