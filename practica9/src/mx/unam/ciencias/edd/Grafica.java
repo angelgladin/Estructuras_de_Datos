@@ -228,7 +228,7 @@ public class Grafica<T> implements Coleccion<T> {
     public void conecta(T a, T b, double peso) {
         Vertice va = (Vertice) vertice(a);
         Vertice vb = (Vertice) vertice(b);
-        if (a.equals(b) || sonVecinos(a, b))
+        if (a.equals(b) || sonVecinos(a, b) || peso < 1)
             throw new IllegalArgumentException("a y b ya están conectados, o a es igual a b");
         va.vecinos.agrega(new Vecino(vb, peso));
         vb.vecinos.agrega(new Vecino(va, peso));
@@ -330,6 +330,8 @@ public class Grafica<T> implements Coleccion<T> {
             throw new NoSuchElementException();
         Vertice va = (Vertice) vertice(a);
         Vertice vb = (Vertice) vertice(b);
+        if (va == vb)
+            throw new IllegalArgumentException();
         for (Vecino ve : va.vecinos)
             if (ve.vecino.equals(vb))
                 return ve.peso;
