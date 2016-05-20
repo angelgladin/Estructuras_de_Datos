@@ -1,0 +1,15 @@
+Para cada archivo de texto el programa generará un archivo HTML dentro del directorio especificado en la línea de comandos con la siguiente información:
+
+Un conteo de cuántas veces aparece cada palabra en el archivo, sin considerar mayúsculas/minúsculas ni acentos. Dicho de otra forma, líquido se considera la misma palabra que Liquidó. El conteo debe realizarse en O(n), donde n es el número de palabras en el archivo.
+Una gráfica de pastel de las palabras más comunes en el archivo y qué porcentaje del total de palabras ocupan.
+Un árbol rojinegro con las 15 palabras más utilizadas en el archivo, donde el valor de cada palabra es el número de veces que aparece en el archivo.
+Un árbol AVL con los mismos datos del árbol de arriba.
+Además del archivo HTML correspondiente a cada archivo especificado en la línea de comandos, deben generar un archivo index.html con ligas a cada archivo HTML generado, el número de palabras en cada uno, y una gráfica donde cada archivo es un vértice, y dos archivos son vecinos si ambos contienen al menos 10 palabaras en común, con al menos 5 caracteres cada una.
+
+Su programa deberá cumplir las siguientes reglas:
+
+Todos los gráficos deben de ser SVG generados por ustedes (sin usar ninguna biblioteca externa).
+Deben usar las clases vistas en el curso, y no pueden utilizar ninguna clase del paquete java.util; excepciones e interfaces están permitidas.
+No pueden modificar las clases del curso: no pueden agregarles ni métodos ni variables de clase, no importa el acceso. Tampoco pueden modificar los nombres de paquetes. Deben utilizar las clases con el comportamiento que se les ha definido a lo largo del curso.
+Su programa debe ser robusto frente a errores; si el directorio de salida o alguno de los archivos no existen, o no tienen permisos para usarlos, el programa no debe lanzar una excepción: debe mostrar un mensaje (al error estándar) explicando qué ocurrió, y terminar con gracia.
+
