@@ -356,15 +356,16 @@ public class Diccionario<K, V> implements Iterable<V> {
         for (K k : llaves())
             if (!d.contiene(k) && !d.get(k).equals(get(k))) {
                 return false;
-                return true;
             }
-
-        /**
-         * Regresa un iterador para iterar los valores del diccionario. El
-         * diccionario se itera sin ningún orden específico.
-         * @return un iterador para iterar el diccionario.
-         */
-        @Override public Iterator<V> iterator() {
-            return new Iterador();
-        }
+        return true;
     }
+
+    /**
+     * Regresa un iterador para iterar los valores del diccionario. El
+     * diccionario se itera sin ningún orden específico.
+     * @return un iterador para iterar el diccionario.
+     */
+    @Override public Iterator<V> iterator() {
+        return new Iterador();
+    }
+}
