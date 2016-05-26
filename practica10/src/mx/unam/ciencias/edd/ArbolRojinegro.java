@@ -3,16 +3,16 @@ package mx.unam.ciencias.edd;
 /**
  * Clase para árboles rojinegros. Un árbol rojinegro cumple las siguientes
  * propiedades:
- *
+ * <p>
  * <ol>
- *  <li>Todos los vértices son NEGROS o ROJOS.</li>
- *  <li>La raíz es NEGRA.</li>
- *  <li>Todas las hojas (<tt>null</tt>) son NEGRAS (al igual que la raíz).</li>
- *  <li>Un vértice ROJO siempre tiene dos hijos NEGROS.</li>
- *  <li>Todo camino de un vértice a alguna de sus hojas descendientes tiene el
- *      mismo número de vértices NEGROS.</li>
+ * <li>Todos los vértices son NEGROS o ROJOS.</li>
+ * <li>La raíz es NEGRA.</li>
+ * <li>Todas las hojas (<tt>null</tt>) son NEGRAS (al igual que la raíz).</li>
+ * <li>Un vértice ROJO siempre tiene dos hijos NEGROS.</li>
+ * <li>Todo camino de un vértice a alguna de sus hojas descendientes tiene el
+ * mismo número de vértices NEGROS.</li>
  * </ol>
- *
+ * <p>
  * Los árboles rojinegros son autobalanceados, y por lo tanto las operaciones de
  * inserción, eliminación y búsqueda pueden realizarse en <i>O</i>(log
  * <i>n</i>).
@@ -31,11 +31,14 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
      */
     protected class VerticeRojinegro extends ArbolBinario<T>.Vertice {
 
-        /** El color del vértice. */
+        /**
+         * El color del vértice.
+         */
         public Color color;
 
         /**
          * Constructor único que recibe un elemento.
+         *
          * @param elemento el elemento del vértice.
          */
         public VerticeRojinegro(T elemento) {
@@ -45,6 +48,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
 
         /**
          * Regresa una representación en cadena del vértice rojinegro.
+         *
          * @return una representación en cadena del vértice rojinegro.
          */
         public String toString() {
@@ -54,42 +58,44 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
         /**
          * Compara el vértice con otro objeto. La comparación es
          * <em>recursiva</em>.
+         *
          * @param o el objeto con el cual se comparará el vértice.
          * @return <code>true</code> si el objeto es instancia de la clase
-         *         {@link VerticeRojinegro}, su elemento es igual al elemento de
-         *         éste vértice, los descendientes de ambos son recursivamente
-         *         iguales, y los colores son iguales; <code>false</code> en
-         *         otro caso.
+         * {@link VerticeRojinegro}, su elemento es igual al elemento de
+         * éste vértice, los descendientes de ambos son recursivamente
+         * iguales, y los colores son iguales; <code>false</code> en
+         * otro caso.
          */
         @Override public boolean equals(Object o) {
             if (o == null || raiz == null || getClass() != o.getClass())
                 return false;
             @SuppressWarnings("unchecked") VerticeRojinegro vertice = (VerticeRojinegro) o;
             return raiz.get().equals(vertice.get()) && verticeRojinegro(raiz).color == vertice.color
-                   && equals(verticeRojinegro(raiz.izquierdo), verticeRojinegro(vertice.izquierdo))
-                   && equals(verticeRojinegro(raiz.derecho), verticeRojinegro(vertice.derecho));
+                    && equals(verticeRojinegro(raiz.izquierdo), verticeRojinegro(vertice.izquierdo))
+                    && equals(verticeRojinegro(raiz.derecho), verticeRojinegro(vertice.derecho));
         }
 
         private boolean equals(VerticeRojinegro a, VerticeRojinegro b) {
             //En el caso de que vertices de un nodo y ambos no tengas hijos.
             if (a == null && b == null)
                 return true;
-            //Si los vertices hijos son diferentes.
+                //Si los vertices hijos son diferentes.
             else if (a != null && b == null || a == null && b != null)
                 return false;
             //Compara el elemento y despues a sus hijos por izquierda y
             return a.get().equals(b.get()) && verticeRojinegro(a).color == b.color
-                   && equals(verticeRojinegro(a.izquierdo), verticeRojinegro(b.izquierdo))
-                   && equals(verticeRojinegro(a.derecho), verticeRojinegro(b.derecho));
+                    && equals(verticeRojinegro(a.izquierdo), verticeRojinegro(b.izquierdo))
+                    && equals(verticeRojinegro(a.derecho), verticeRojinegro(b.derecho));
         }
     }
 
     /**
      * Construye un nuevo vértice, usando una instancia de {@link
      * VerticeRojinegro}.
+     *
      * @param elemento el elemento dentro del vértice.
      * @return un nuevo vértice rojinegro con el elemento recibido dentro del
-     *         mismo.
+     * mismo.
      */
     @Override protected Vertice nuevoVertice(T elemento) {
         return new VerticeRojinegro(elemento);
@@ -100,23 +106,25 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
      * VerticeArbolBinario}) en vértice (visto como instancia de {@link
      * VerticeRojinegro}). Método auxililar para hacer esta audición en un único
      * lugar.
+     *
      * @param vertice el vértice de árbol binario que queremos como vértice
      *                rojinegro.
      * @return el vértice recibido visto como vértice rojinegro.
      * @throws ClassCastException si el vértice no es instancia de {@link
-     *         VerticeRojinegro}.
+     *                            VerticeRojinegro}.
      */
     private VerticeRojinegro verticeRojinegro(VerticeArbolBinario<T> vertice) {
-        VerticeRojinegro v = (VerticeRojinegro)vertice;
+        VerticeRojinegro v = (VerticeRojinegro) vertice;
         return v;
     }
 
     /**
      * Regresa el color del vértice rojinegro.
+     *
      * @param vertice el vértice del que queremos el color.
      * @return el color del vértice rojinegro.
      * @throws ClassCastException si el vértice no es instancia de {@link
-     *         VerticeRojinegro}.
+     *                            VerticeRojinegro}.
      */
     public Color getColor(VerticeArbolBinario<T> vertice) {
         return verticeRojinegro(vertice).color;
@@ -126,6 +134,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
      * Agrega un nuevo elemento al árbol. El método invoca al método {@link
      * ArbolBinarioOrdenado#agrega}, y después balancea el árbol recoloreando
      * vértices y girando el árbol como sea necesario.
+     *
      * @param elemento el elemento a agregar.
      */
     @Override public void agrega(T elemento) {
@@ -138,13 +147,13 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
 
     /**
      * Metodo auxiliar que es llamado cuando se agrega un elemento al arbol
-     * para balancear el arbol. 
+     * para balancear el arbol.
      */
     private void rebalanceoAgrega(VerticeRojinegro vertice) {
         VerticeRojinegro padre, abuelo, tio;
         /** --Caso 1---
-        * El padre del vertice es nulo.
-        * Coloreamos el vertice de NEGRO y terminamos. */
+         * El padre del vertice es nulo.
+         * Coloreamos el vertice de NEGRO y terminamos. */
         if (!vertice.hayPadre()) {
             raiz = vertice;
             vertice.color = Color.NEGRO;
@@ -187,8 +196,8 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
             //Preparamos para el caso 5.
         }
         /** --Caso 5---
-        * Coloreamos al padre de NEGRO y al abuelo de ROJO, giramos sobre el
-        * abuelo en direccion contraria del vertice. */
+         * Coloreamos al padre de NEGRO y al abuelo de ROJO, giramos sobre el
+         * abuelo en direccion contraria del vertice. */
         padre.color = Color.NEGRO;
         abuelo.color = Color.ROJO;
         if (esHijoIzquierdo(vertice))
@@ -199,13 +208,14 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
 
     private VerticeRojinegro obtenerTio(VerticeRojinegro padre, VerticeRojinegro abuelo) {
         return esHijoIzquierdo(padre) ? verticeRojinegro(abuelo.derecho) :
-               verticeRojinegro(abuelo.izquierdo);
+                verticeRojinegro(abuelo.izquierdo);
     }
 
     /**
      * Elimina un elemento del árbol. El método elimina el vértice que contiene
      * el elemento, y recolorea y gira el árbol como sea necesario para
      * rebalancearlo.
+     *
      * @param elemento el elemento a eliminar del árbol.
      */
     @Override public void elimina(T elemento) {
@@ -227,7 +237,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
             aux.elemento = vertice.elemento;
         }
         //En el caso de que sea hoja, le crearemos un vertice fantasama.
-        if (esHoja(vertice)){
+        if (esHoja(vertice)) {
             fantasma = verticeRojinegro(nuevoVertice(null));
             fantasma.color = Color.NEGRO;
             fantasma.padre = vertice;
@@ -247,10 +257,10 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
         //3->)El motivo del rebalanceo es que como hay dos negros, el nuemero de caminos para
         //todo vertice se ve alterado.
         //Vertice ROJO,  Hijo ROJO -> NO SE TOMA ESTE CASO, ya que lo vertices ROJOS no pueden tener hijos ROJOS.
-        if(esNegro(vertice) && esNegro(hijo)){
+        if (esNegro(vertice) && esNegro(hijo)) {
             hijo.color = Color.NEGRO;
             rebalanceoElimina(hijo);
-        }else 
+        } else
             hijo.color = Color.NEGRO;
 
         mataFantasma(fantasma);
@@ -258,7 +268,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
         elementos--;
     }
 
-    private void subirHijo(VerticeRojinegro vertice){
+    private void subirHijo(VerticeRojinegro vertice) {
         if (vertice.hayIzquierdo())
             //En este caso solamente sube y elimina el elemento que esta en la raiz.
             if (vertice == raiz) {
@@ -272,7 +282,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
                 else
                     vertice.padre.derecho = vertice.izquierdo;
             }
-        //En el caso de que se todo un "chorizo" con hijo(s) derechos.
+            //En el caso de que se todo un "chorizo" con hijo(s) derechos.
         else
             //En este caso solamente sube y elimina el elemento que esta en la raiz.
             if (vertice == raiz) {
@@ -288,15 +298,14 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
             }
     }
 
-    private void mataFantasma(VerticeRojinegro fantasma){
-        if(fantasma != null)
-            if(esRaiz(fantasma))
+    private void mataFantasma(VerticeRojinegro fantasma) {
+        if (fantasma != null)
+            if (esRaiz(fantasma))
                 raiz = ultimoAgregado = fantasma = null;
+            else if (esHijoIzquierdo(fantasma))
+                fantasma.padre.izquierdo = null;
             else
-                if(esHijoIzquierdo(fantasma))
-                    fantasma.padre.izquierdo = null;
-                else
-                    fantasma.padre.derecho = null;
+                fantasma.padre.derecho = null;
     }
 
     private void rebalanceoElimina(VerticeRojinegro vertice) {
@@ -304,7 +313,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
         /** --Caso 1--
          * El padre es null.
          * Terminamos. */
-        if (vertice.padre == null){
+        if (vertice.padre == null) {
             vertice.color = Color.NEGRO;
             raiz = vertice;
             return;
@@ -318,7 +327,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
         if (!esNegro(hermano)) {
             hermano.color = Color.NEGRO;
             padre.color = Color.ROJO;
-            
+
             if (esHijoIzquierdo(vertice))
                 super.giraIzquierda(padre);
             else
@@ -350,14 +359,14 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
          * Coloreamos al sobrino ROJO de NEGRO, hermano de ROJO y giramos sobre 
          * el hermano en la direccion contraria al vertice. */
         if (sonVerticesBicoloreados(sobrinoIzq, sobrinoDer) && sonSobrinoCruzados(vertice, sobrinoIzq, sobrinoDer)) {
-            if(!esNegro(sobrinoIzq))
+            if (!esNegro(sobrinoIzq))
                 sobrinoIzq.color = Color.NEGRO;
             else
                 sobrinoDer.color = Color.NEGRO;
 
             hermano.color = Color.ROJO;
 
-            if(esHijoIzquierdo(vertice))
+            if (esHijoIzquierdo(vertice))
                 super.giraDerecha(hermano);
             else
                 super.giraIzquierda(hermano);
@@ -374,19 +383,19 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
         hermano.color = padre.color;
         padre.color = Color.NEGRO;
 
-        if(esHijoIzquierdo(vertice))
+        if (esHijoIzquierdo(vertice))
             sobrinoDer.color = Color.NEGRO;
         else
             sobrinoIzq.color = Color.NEGRO;
 
-        if(esHijoIzquierdo(vertice))
+        if (esHijoIzquierdo(vertice))
             super.giraIzquierda(padre);
         else
             super.giraDerecha(padre);
     }
 
-    private VerticeRojinegro obtenerHijo(VerticeRojinegro vertice){
-        if(vertice.hayIzquierdo())
+    private VerticeRojinegro obtenerHijo(VerticeRojinegro vertice) {
+        if (vertice.hayIzquierdo())
             return verticeRojinegro(vertice.izquierdo);
         return verticeRojinegro(vertice.derecho);
     }
@@ -410,10 +419,10 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
     /**
      * Se tiene p v q
      * donde  p -> vertice == null
-     *        q -> vertice.color == Color.NEGRO
+     * q -> vertice.color == Color.NEGRO
      * Entonces su negación es ¬p ^ ¬q
      * donde ¬p -> vertice != null
-     *       ¬q -> vertice.color != Color.NEGRO
+     * ¬q -> vertice.color != Color.NEGRO
      */
     private boolean esNegro(VerticeRojinegro vertice) {
         return vertice == null || vertice.color == Color.NEGRO;
@@ -433,26 +442,55 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
      * Lanza la excepción {@link UnsupportedOperationException}: los árboles AVL
      * no pueden ser girados a la derecha por los usuarios de la clase, porque
      * se desbalancean.
+     *
      * @param vertice el vértice sobre el que se quiere girar.
      * @throws UnsupportedOperationException siempre.
      */
     @Override public void giraDerecha(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                                                "girar a la izquierda por el " +
-                                                "usuario.");
+                "girar a la izquierda por el " +
+                "usuario.");
     }
 
     /**
      * Lanza la excepción {@link UnsupportedOperationException}: los árboles AVL
      * no pueden ser girados a la izquierda por los usuarios de la clase, porque
      * se desbalancean.
+     *
      * @param vertice el vértice sobre el que se quiere girar.
      * @throws UnsupportedOperationException siempre.
      */
     @Override public void giraIzquierda(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                                                "girar a la derecha por el " +
-                                                "usuario.");
+                "girar a la derecha por el " +
+                "usuario.");
     }
 
+    private boolean esHoja(Vertice vertice) {
+        return !vertice.hayDerecho() && !vertice.hayIzquierdo();
+    }
+
+    /**
+     * Metodo auxiliar que me indica si es un hijo izquierdo, comparando el
+     * vertice su padre el izquierdo (osea el mismo vertice),
+     * igual a el mismo
+     *
+     * @param vertice El vertice del cual se desea saber.
+     * @return <code>true</code> Si es hijo izquiero, <code>false</code> en otro caso.
+     */
+    private boolean esHijoIzquierdo(Vertice vertice) {
+        if (!vertice.hayPadre())
+            return false;
+        return vertice.padre.izquierdo == vertice;
+    }
+
+    private boolean esHijoDerecho(Vertice vertice) {
+        if (!vertice.hayPadre())
+            return false;
+        return vertice.padre.derecho == vertice;
+    }
+
+    private boolean esRaiz(Vertice vertice) {
+        return vertice == raiz;
+    }
 }

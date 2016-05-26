@@ -1,11 +1,10 @@
 package mx.unam.ciencias.edd;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * <p>Clase para árboles binarios completos.</p>
- *
+ * <p>
  * <p>Un árbol binario completo agrega y elimina elementos de tal forma que el
  * árbol siempre es lo más cercano posible a estar lleno.</p>
  */
@@ -19,7 +18,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         /* Constructor que recibe la raíz del árbol. */
         public Iterador() {
             cola = new Cola<>();
-            if(raiz != null)
+            if (raiz != null)
                 cola.mete(raiz);
         }
 
@@ -50,13 +49,16 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * Constructor sin parámetros. Para no perder el constructor sin parámetros
      * de {@link ArbolBinario}.
      */
-    public ArbolBinarioCompleto() { super(); }
+    public ArbolBinarioCompleto() {
+        super();
+    }
 
     /**
      * Construye un árbol binario completo a partir de una colección. El árbol
      * binario completo tiene los mismos elementos que la colección recibida.
+     *
      * @param coleccion la colección a partir de la cual creamos el árbol
-     *        binario completo.
+     *                  binario completo.
      */
     public ArbolBinarioCompleto(Coleccion<T> coleccion) {
         super(coleccion);
@@ -65,9 +67,10 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     /**
      * Agrega un elemento al árbol binario completo. El nuevo elemento se coloca
      * a la derecha del último nivel, o a la izquierda de un nuevo nivel.
+     *
      * @param elemento el elemento a agregar al árbol.
      * @throws IllegalArgumentException si <code>elemento</code> es
-     *         <code>null</code>.
+     *                                  <code>null</code>.
      */
     @Override public void agrega(T elemento) {
         if (elemento == null)
@@ -108,6 +111,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * Elimina un elemento del árbol. El elemento a eliminar cambia lugares con
      * el último elemento del árbol al recorrerlo por BFS, y entonces es
      * eliminado.
+     *
      * @param elemento el elemento a eliminar.
      */
     @Override public void elimina(T elemento) {
@@ -152,15 +156,30 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
             }
             //En el caso de que no lo haya encontrado, mete a sus hijos.
             //En la cola cuando de le pasa un elemento nulo solo hace un return.
-            if(vertice.izquierdo != null)
+            if (vertice.izquierdo != null)
                 cola.mete(vertice.izquierdo);
-            if(vertice.derecho != null)
+            if (vertice.derecho != null)
                 cola.mete(vertice.derecho);
         }
     }
 
     /**
+     * Metodo auxiliar que me indica si es un hijo izquierdo, comparando el
+     * vertice su padre el izquierdo (osea el mismo vertice),
+     * igual a el mismo
+     *
+     * @param vertice El vertice del cual se desea saber.
+     * @return <code>true</code> Si es hijo izquiero, <code>false</code> en otro caso.
+     */
+    private boolean esHijoIzquierdo(Vertice vertice) {
+        if (!vertice.hayPadre())
+            return false;
+        return vertice.padre.izquierdo == vertice;
+    }
+
+    /**
      * Regresa un iterador para iterar el árbol. El árbol se itera en orden BFS.
+     *
      * @return un iterador para iterar el árbol.
      */
     @Override public Iterator<T> iterator() {
