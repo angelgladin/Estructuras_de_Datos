@@ -3,6 +3,7 @@ package mx.unam.ciencias.edd.proyecto3.svg;
 import mx.unam.ciencias.edd.Grafica;
 import mx.unam.ciencias.edd.Lista;
 import mx.unam.ciencias.edd.proyecto3.DataStructure;
+import mx.unam.ciencias.edd.proyecto3.pojo.WordEntry;
 
 /**
  * <p>Se utilizó el patrón de Diseño <b>Factory Pattern</b> (el cual es un patrón de creación) para evitar
@@ -28,6 +29,10 @@ public class SVG_Factory<T extends Comparable<T>> {
 
     public SVG_Graficable getGraph(Grafica<T> graph) {
         return new SVG_Graph<>(graph);
+    }
+
+    public SVG_Graficable getPieChart(Lista<WordEntry> wordEntryList){
+        return new SVG_PieChart(wordEntryList);
     }
 
 }

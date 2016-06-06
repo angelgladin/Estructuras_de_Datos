@@ -1,14 +1,6 @@
 package mx.unam.ciencias.edd.proyecto3.svg;
 
-import mx.unam.ciencias.edd.ArbolBinario;
-import mx.unam.ciencias.edd.ArbolBinarioCompleto;
-import mx.unam.ciencias.edd.ArbolBinarioOrdenado;
-import mx.unam.ciencias.edd.ArbolRojinegro;
-import mx.unam.ciencias.edd.ArbolAVL;
-import mx.unam.ciencias.edd.Indexable;
-import mx.unam.ciencias.edd.MonticuloMinimo;
-import mx.unam.ciencias.edd.VerticeArbolBinario;
-import mx.unam.ciencias.edd.Lista;
+import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto3.DataStructure;
 
 /**
@@ -19,7 +11,7 @@ import mx.unam.ciencias.edd.proyecto3.DataStructure;
  * @version 1.0
  * @since 13/05/2016.
  */
-public class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
+class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
 
     private ArbolBinario<T> binaryTree;
     private DataStructure dataStructure;
@@ -28,7 +20,7 @@ public class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
     private int height;
     private int depth;
 
-    public SVG_Tree(Lista<T> elementos, DataStructure dataStructure) {
+    SVG_Tree(Lista<T> elementos, DataStructure dataStructure) {
         this.dataStructure = dataStructure;
         switch (dataStructure) {
             case COMPLETE_BINARY_TREE:

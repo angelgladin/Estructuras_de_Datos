@@ -11,11 +11,11 @@ import mx.unam.ciencias.edd.proyecto3.DataStructure;
  * @version 1.0
  * @since 13/05/2016.
  */
-public class SVG_List_Stack_Queue<T> implements SVG_Graficable {
+class SVG_List_Stack_Queue<T> implements SVG_Graficable {
     private Lista<T> elements;
     private DataStructure dataStructure;
 
-    public SVG_List_Stack_Queue(Lista<T> elements, DataStructure dataStructure) {
+    SVG_List_Stack_Queue(Lista<T> elements, DataStructure dataStructure) {
         this.elements = elements;
         this.dataStructure = dataStructure;
     }

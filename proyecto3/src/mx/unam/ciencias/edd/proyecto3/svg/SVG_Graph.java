@@ -11,12 +11,12 @@ import mx.unam.ciencias.edd.Lista;
  * @version 1.0
  * @since 13/05/2016.
  */
-public class SVG_Graph<T> implements SVG_Graficable {
+class SVG_Graph<T> implements SVG_Graficable {
 
     private Grafica<T> graph;
     private Lista<Point> pointsList = new Lista<>();
 
-    public SVG_Graph(Grafica<T> graph) {
+    SVG_Graph(Grafica<T> graph) {
         this.graph = graph;
     }
 
@@ -34,7 +34,8 @@ public class SVG_Graph<T> implements SVG_Graficable {
     /**
      * Método que dados los vértices de la gráfica, les va asignando una coordenada como si estuviesen en la
      * circunferencia de un círculo, para después llenar una lista con los puntos.
-     * @param r El radio del círculo,
+     *
+     * @param r      El radio del círculo,
      * @param nParts El número de veces que será dividida en partes proporcionales la circunferencia.
      */
     private void createVertices(int r, int nParts) {
@@ -51,6 +52,7 @@ public class SVG_Graph<T> implements SVG_Graficable {
 
     /**
      * Método que dibuja vértices.
+     *
      * @return Una cadena con código SVG de solamente las vertices.
      */
     private String drawVertices() {
@@ -62,6 +64,7 @@ public class SVG_Graph<T> implements SVG_Graficable {
 
     /**
      * Método que dibuja aristas.
+     *
      * @return Una cadena con código SVG de solamente las aristas.
      */
     private String drawRelations() {
@@ -90,14 +93,6 @@ public class SVG_Graph<T> implements SVG_Graficable {
             this.x = x;
             this.y = y;
             this.data = data;
-        }
-
-        @Override public String toString() {
-            return "Point{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    ", data='" + data.toString() + '\'' +
-                    '}';
         }
     }
 }
