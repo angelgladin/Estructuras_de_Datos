@@ -3,6 +3,7 @@ package mx.unam.ciencias.edd;
 /**
  * Interfaz para realizar acciones sobre iteradores de gráficas.
  */
+@FunctionalInterface
 public interface AccionVerticeGrafica<T> {
 
     /**

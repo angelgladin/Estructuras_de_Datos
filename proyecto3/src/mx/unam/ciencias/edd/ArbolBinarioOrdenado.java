@@ -141,12 +141,12 @@ public class ArbolBinarioOrdenado<T extends Comparable<T>> extends ArbolBinario<
             //Si es la raiz, pone todo en null.
             if (vertice == raiz)
                 raiz = ultimoAgregado = null;
-                //En otro caso solomante corta la conexion con las hojas.
+        //En otro caso solomante corta la conexion con las hojas.
             else if (esHijoIzquierdo(vertice))
                 vertice.padre.izquierdo = vertice.padre = null;
             else
                 vertice.padre.derecho = vertice.padre = null;
-            //En el caso de que es todo un "chorizo" con hijo(s) izquierdos.
+        //En el caso de que es todo un "chorizo" con hijo(s) izquierdos.
         else if (vertice.hayIzquierdo())
             //En este caso solamente sube y elimina el elemento que esta en la raiz.
             if (vertice == raiz) {
@@ -160,7 +160,7 @@ public class ArbolBinarioOrdenado<T extends Comparable<T>> extends ArbolBinario<
                 else
                     vertice.padre.derecho = vertice.izquierdo;
             }
-            //En el caso de que se todo un "chorizo" con hijo(s) derechos.
+        //En el caso de que se todo un "chorizo" con hijo(s) derechos.
         else
             //En este caso solamente sube y elimina el elemento que esta en la raiz.
             if (vertice == raiz) {

@@ -156,8 +156,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>>
         if (esVacio())
             throw new IllegalStateException();
         T e = arbol[0];
-        //Pregintarle a Canek esto :c
-        //e.setIndice(-1);
+        //JAVA TRABAJA CON REFERENCIAS        
         //Se intercambia el ultimo con el que esta hasta arriba
         //Se hace minHeapify() ya que no hay padre y siempre es para abajo.
         intercambia(e, arbol[--siguiente]);
@@ -218,9 +217,9 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>>
     }
 
     /**
-      * Reordena un elemento en el árbol.
-      * @param elemento el elemento que hay que reordenar.
-      */
+     * Reordena un elemento en el árbol.
+     * @param elemento el elemento que hay que reordenar.
+     */
     public void reordena(T elemento) {
         if (elemento == null)
             return ;
@@ -253,8 +252,8 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>>
     /**
      * Regresa un iterador para iterar el montículo mínimo. El montículo se
      * itera en orden BFS
-    .     * @return un iterador para iterar el montículo mínimo.
-     */
+     .     * @return un iterador para iterar el montículo mínimo.
+    */
     @Override public Iterator<T> iterator() {
         return new Iterador();
     }

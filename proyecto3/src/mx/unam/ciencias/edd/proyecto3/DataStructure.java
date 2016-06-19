@@ -6,7 +6,7 @@ package mx.unam.ciencias.edd.proyecto3;
  *
  * @author Angel Gladin
  * @version 1.0
- * @since 13/05/2016.
+ * @since 17/06/2016.
  */
 public enum DataStructure {
     LIST,

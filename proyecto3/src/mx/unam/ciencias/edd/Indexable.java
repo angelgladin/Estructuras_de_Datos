@@ -20,7 +20,7 @@ public class Indexable<T> implements ComparableIndexable<Indexable<T>> {
     public Indexable(T elemento, double valor) {
         this.elemento = elemento;
         this.valor = valor;
-        this.indice = -1;
+        indice = -1;
     }
 
     /**
@@ -39,9 +39,9 @@ public class Indexable<T> implements ComparableIndexable<Indexable<T>> {
      *         es mayor.
      */
     @Override public int compareTo(Indexable<T> indexable) {
-        if(valor < indexable.getValor())
+        if (valor - indexable.valor < 0.0)
             return -1;
-        else if (valor > indexable.getValor())
+        if (valor - indexable.valor > 0.0)
             return 1;
         return 0;
     }

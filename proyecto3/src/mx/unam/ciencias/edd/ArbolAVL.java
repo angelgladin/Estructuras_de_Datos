@@ -55,21 +55,21 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
                 return false;
             @SuppressWarnings("unchecked") VerticeAVL vertice = (VerticeAVL) o;
             return raiz.get().equals(vertice.get()) && verticeAVL(raiz).altura == vertice.altura
-                    && equals(verticeAVL(raiz.izquierdo), verticeAVL(vertice.izquierdo))
-                    && equals(verticeAVL(raiz.derecho), verticeAVL(vertice.derecho));
+                && equals(verticeAVL(raiz.izquierdo), verticeAVL(vertice.izquierdo))
+                && equals(verticeAVL(raiz.derecho), verticeAVL(vertice.derecho));
         }
 
         private boolean equals(VerticeAVL a, VerticeAVL b) {
             //En el caso de que vertices de un nodo y ambos no tengas hijos.
             if (a == null && b == null)
                 return true;
-                //Si los vertices hijos son diferentes.
+            //Si los vertices hijos son diferentes.
             else if (a != null && b == null || a == null && b != null)
                 return false;
             //Compara el elemento y despues a sus hijos por izquierda y
             return a.get().equals(b.get()) && verticeAVL(a).altura == b.altura
-                    && equals(verticeAVL(a.izquierdo), verticeAVL(b.izquierdo))
-                    && equals(verticeAVL(a.derecho), verticeAVL(b.derecho));
+                && equals(verticeAVL(a.izquierdo), verticeAVL(b.izquierdo))
+                && equals(verticeAVL(a.derecho), verticeAVL(b.derecho));
         }
     }
 
@@ -180,7 +180,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
         //Si es la raiz, pone todo en null.
         if (vertice == raiz)
             raiz = ultimoAgregado = null;
-            //En otro caso solomante corta la conexion con las hojas.
+        //En otro caso solomante corta la conexion con las hojas.
         else if (esHijoIzquierdo(vertice))
             vertice.padre.izquierdo = null;
         else
@@ -201,7 +201,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
                 else
                     vertice.padre.derecho = vertice.izquierdo;
             }
-            //En el caso de que se todo un "chorizo" con hijo(s) derechos.
+        //En el caso de que se todo un "chorizo" con hijo(s) derechos.
         else
             //En este caso solamente sube y elimina el elemento que esta en la raiz.
             if (vertice == raiz) {
@@ -228,8 +228,8 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
      */
     @Override public void giraDerecha(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                "girar a la izquierda por el " +
-                "usuario.");
+                                                "girar a la izquierda por el " +
+                                                "usuario.");
     }
 
     /**
@@ -242,8 +242,8 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioOrdenado<T> {
      */
     @Override public void giraIzquierda(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                "girar a la derecha por el " +
-                "usuario.");
+                                                "girar a la derecha por el " +
+                                                "usuario.");
     }
 
     /**

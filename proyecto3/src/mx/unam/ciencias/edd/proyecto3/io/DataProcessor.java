@@ -13,28 +13,35 @@ import java.io.IOException;
 import java.text.Normalizer;
 
 /**
+ * Clase la cual se encarga de hacer los algoritmos suficientes para contar las palabras,
+ * identificar lo(s) archivo(s) y el directorio, y generar la gráfica entre los archivos.
+ *
  * @author Angel Gladin
  * @version 1.0
- * @since 26/05/2016.
+ * @since 17/06/2016.
  */
 public class DataProcessor {
 
     final String DIRECTORY_FLAG = "-o";
 
     private Lista<String> fileNameList = new Lista<>();
-    private String directoryName;
+    private File directoryFile;
 
     private Lista<Diccionario<String, Integer>> dictionaryList = new Lista<>();
     private Grafica<String> graph = new Grafica<>();
 
     public DataProcessor(String[] args) throws IOException {
-        if(args.length == 0)
-            throw new IllegalArgumentException("Ningun argumento");
         getFilesAndDirectory(args);
         fillDictionaryList();
         doDictionaryGraph();
     }
 
+    /**
+     * Método privado el cual identifica los archivos y el directorio.
+     *
+     * @param args Los argumentos que se le fueron pasados en la consola.
+     * @throws InvalidDirectoryException Si hubo algun error con el directorio.
+     */
     private void getFilesAndDirectory(String[] args) throws InvalidDirectoryException {
         if (args.length == 0)
             throw new NoArgumentsGivenException();
@@ -43,13 +50,18 @@ public class DataProcessor {
                 if (args[i].equals(DIRECTORY_FLAG)) {
                     if (i + 1 >= args.length || !(new File(args[i + 1]).isDirectory()))
                         throw new InvalidDirectoryException();
-                    directoryName = args[(i++) + 1];
+                    directoryFile = new File(args[(i++) + 1]);
                 } else {
                     fileNameList.agrega(args[i]);
                 }
             }
     }
 
+    /**
+     * Método el cual llena los diccionarios.
+     *
+     * @throws IOException Una excepción con la entrada o salida.
+     */
     private void fillDictionaryList() throws IOException {
         for (int i = 0; i < fileNameList.getElementos(); i++) {
             Diccionario<String, Integer> dictionary = new Diccionario<>();
@@ -62,8 +74,8 @@ public class DataProcessor {
                     //Solamente dejo caracteres que son letras.
                     //Trato todas las palabras como si no tuvieran acentos.
                     String word = Normalizer
-                            .normalize(words[j].replaceAll("\\P{L}+", "").toLowerCase(), Normalizer.Form.NFD)
-                            .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+                        .normalize(words[j].replaceAll("\\P{L}+", "").toLowerCase(), Normalizer.Form.NFD)
+                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
                     if (word.length() > 0)
                         if (dictionary.contiene(word))
                             dictionary.agrega(word, dictionary.get(word) + 1);
@@ -75,15 +87,21 @@ public class DataProcessor {
         }
     }
 
+    /**
+     * Método auxiliar el cual dada una lista de {@link Diccionario} crea una grafica.
+     */
     private void doDictionaryGraph() {
-        for (String fileName : fileNameList)
-            graph.agrega(fileName);
+        Lista<String> aux = new Lista<>();
+        fileNameList.forEach(fileName -> aux.agrega(new File(directoryFile, fileName).getName()));
+        fileNameList = aux;
+        fileNameList.forEach(graph::agrega);
 
         Lista<String> wordList = new Lista<>();
         int i = 0;
         int j = 0;
 
         for (Diccionario<String, Integer> dictionary_A : dictionaryList) {
+
             for (Diccionario<String, Integer> dictionary_B : dictionaryList) {
                 //To reduce computation
                 if (dictionary_A != dictionary_B) {
@@ -103,18 +121,38 @@ public class DataProcessor {
         }//end for dictionary_A
     }
 
+    /**
+     * Método que provee una lista con el nombre de los archivos.
+     *
+     * @return Una lista con el nombre de los archivos.
+     */
     public Lista<String> getFileNameList() {
         return fileNameList;
     }
 
-    public String getDirectoryName() {
-        return directoryName;
+    /**
+     * Método que provee el directorio identificado.
+     *
+     * @return El directorio identificado.
+     */
+    public File getDirectoryFile() {
+        return directoryFile;
     }
 
+    /**
+     * Método que provee una lista de diccionarios.
+     *
+     * @return Una lista de diccionarios.
+     */
     public Lista<Diccionario<String, Integer>> getDictionaryList() {
         return dictionaryList;
     }
 
+    /**
+     * Método que provee una gráfica hecha con los archivos.
+     *
+     * @return Una gráfica hecha con los archivos.
+     */
     public Grafica<String> getGraph() {
         return graph;
     }

@@ -71,21 +71,21 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
                 return false;
             @SuppressWarnings("unchecked") VerticeRojinegro vertice = (VerticeRojinegro) o;
             return raiz.get().equals(vertice.get()) && verticeRojinegro(raiz).color == vertice.color
-                    && equals(verticeRojinegro(raiz.izquierdo), verticeRojinegro(vertice.izquierdo))
-                    && equals(verticeRojinegro(raiz.derecho), verticeRojinegro(vertice.derecho));
+                && equals(verticeRojinegro(raiz.izquierdo), verticeRojinegro(vertice.izquierdo))
+                && equals(verticeRojinegro(raiz.derecho), verticeRojinegro(vertice.derecho));
         }
 
         private boolean equals(VerticeRojinegro a, VerticeRojinegro b) {
             //En el caso de que vertices de un nodo y ambos no tengas hijos.
             if (a == null && b == null)
                 return true;
-                //Si los vertices hijos son diferentes.
+            //Si los vertices hijos son diferentes.
             else if (a != null && b == null || a == null && b != null)
                 return false;
             //Compara el elemento y despues a sus hijos por izquierda y
             return a.get().equals(b.get()) && verticeRojinegro(a).color == b.color
-                    && equals(verticeRojinegro(a.izquierdo), verticeRojinegro(b.izquierdo))
-                    && equals(verticeRojinegro(a.derecho), verticeRojinegro(b.derecho));
+                && equals(verticeRojinegro(a.izquierdo), verticeRojinegro(b.izquierdo))
+                && equals(verticeRojinegro(a.derecho), verticeRojinegro(b.derecho));
         }
     }
 
@@ -208,7 +208,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
 
     private VerticeRojinegro obtenerTio(VerticeRojinegro padre, VerticeRojinegro abuelo) {
         return esHijoIzquierdo(padre) ? verticeRojinegro(abuelo.derecho) :
-                verticeRojinegro(abuelo.izquierdo);
+            verticeRojinegro(abuelo.izquierdo);
     }
 
     /**
@@ -282,7 +282,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
                 else
                     vertice.padre.derecho = vertice.izquierdo;
             }
-            //En el caso de que se todo un "chorizo" con hijo(s) derechos.
+        //En el caso de que se todo un "chorizo" con hijo(s) derechos.
         else
             //En este caso solamente sube y elimina el elemento que esta en la raiz.
             if (vertice == raiz) {
@@ -448,8 +448,8 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
      */
     @Override public void giraDerecha(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                "girar a la izquierda por el " +
-                "usuario.");
+                                                "girar a la izquierda por el " +
+                                                "usuario.");
     }
 
     /**
@@ -462,8 +462,8 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioOrdenad
      */
     @Override public void giraIzquierda(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles AVL no  pueden " +
-                "girar a la derecha por el " +
-                "usuario.");
+                                                "girar a la derecha por el " +
+                                                "usuario.");
     }
 
     private boolean esHoja(Vertice vertice) {
