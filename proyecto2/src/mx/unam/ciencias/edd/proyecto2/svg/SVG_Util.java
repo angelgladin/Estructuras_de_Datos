@@ -10,259 +10,165 @@ import mx.unam.ciencias.edd.proyecto2.DataStructure;
  * @version 1.0
  * @since 13/05/2016.
  */
-public class SVG_Util {
+class SVG_Util {
 
-    public static final String NEW_LINE = "\n";
-    public static final String TAB = "\t";
-    public static final String DOUBLE_TAB = "\t\t";
-    public static final String TRIPLE_TAB = "\t\t\t";
-    public static final String DOUBLE_QUOTE = "\"";
+    static final String XML_PROLOG = "<?xml version='1.0' encoding='UTF-8' ?>\n";
 
-    public static final String XML_PROLOG = "<?xml version='1.0' encoding='UTF-8' ?>";
+    static final String OPEN_G_TAG = "<g>\n";
+    static final String CLOSE_G_TAG = "</g>\n";
+    static final String OPEN_DEFS_TAG = "<defs>\n";
+    static final String CLOSE_DEFS_TAG = "</defs>\n";
 
-    public static final String OPEN_G_TAG = String.format("%s%s<g>", NEW_LINE, TAB);
-    public static final String CLOSE_G_TAG = String.format("%s</g>", TAB);
+    static final String ID_DEF_ARROW = "arrow";
 
-    public static final String OPEN_DEFS_TAG = "<defs>";
-    public static final String CLOSE_DEFS_TAG = "</defs>";
+    static final String FONT_SANS_SERIF = "sans-serif";
+    static final String FONT_TEXT_ANCHOR = "middle";
+    static final int FONT_SIZE_TEXT = 16;
 
-    public static final String ID_DEF_ARROW = "arrow";
+    static final int FONT_SIZE_ARROW = 21;
+    static final String TEXT_LEFT_RIGHT_ARROW = "↔";
+    static final String TEXT_RIGHTWARD_ARROW = "→";
 
-    public static final String FONT_SANS_SERIF = "sans-serif";
-    public static final String FONT_TEXT_ANCHOR = "middle";
-    public static final int FONT_SIZE_TEXT = 16;
+    static final int VERTEX_RADIUS = 25;
+    static final double VERTEX_FONT_SIZE = 11.5;
 
-    public static final int FONT_SIZE_ARROW = 21;
-    public static final String TEXT_LEFT_RIGHT_ARROW = "↔";
-    public static final String TEXT_RIGHTWARD_ARROW = "→";
+    static final int FONT_BALANCE_SIZE_TEXT = 12;
 
-    public static final int VERTEX_RADIUS = 25;
-    public static final int VERTEX_FONT_SIZE = 25;
+    static final int STOKE_WIDTH = 2;
+    static final int STOKE_LINE_WIDTH = 2;
 
-    public static final int GRAPH_WIDTH_HEIGHT = 1000;
+    static final String COLOR_WHITE = "white";
+    static final String COLOR_BLACK = "black";
+    static final String COLOR_RED = "red";
+    static final String COLOR_BLUE = "blue";
 
-    public static final int FONT_BALANCE_SIZE_TEXT = 20;
-
-    public static final int STOKE_WIDTH = 2;
-    public static final int STOKE_LINE_WIDTH = 2;
-
-    public static final String COLOR_WHITE = "white";
-    public static final String COLOR_BLACK = "black";
-    public static final String COLOR_RED = "red";
-    public static final String COLOR_BLUE = "blue";
-
-    public static String startSVGAndPutHeightWidth(int height, int width) {
-        return String.format("<svg height=%s%d%s width=%s%d%s>%s",
-                DOUBLE_QUOTE, height, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, width, DOUBLE_QUOTE,
-                NEW_LINE);
+    static int getVertexRadius(Iterable<?> iterable) {
+        int max = 0;
+        int vertexRadius = 15;
+        for (Object e : iterable)
+            if (e.toString().length() > max)
+                max = e.toString().length();
+        if (max >= 4)
+            vertexRadius = ((max - 3) * 4) + vertexRadius;
+        return vertexRadius;
     }
 
-    public static String closeSVG() {
-        return "</svg>";
+    static String startSVGAndPutHeightWidth(double height, double width) {
+        return String.format("<svg height='%f' width='%f'>\n", height, width);
     }
 
-    public static String openG_TagWithId(String id) {
-        return String.format("<g id=%s%s%s>%s",
-                DOUBLE_QUOTE, id, DOUBLE_QUOTE,
-                NEW_LINE);
+    static String closeSVG() {
+        return "</svg>\n";
     }
 
-    public static String drawArrow(String arrow) {
-        return String.format("<text " +
-                        "x=%s%d%s " +
-                        "y=%s%d%s " +
-                        "fill=%s%s%s " +
-                        "font-family=%s%s%s " +
-                        "font-size=%s%d%s " +
-                        "text-anchor=%s%s%s" +
-                        ">" +
-                        "%s" +
-                        "</text>",
-                DOUBLE_QUOTE, 0, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, 0, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_BLACK, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_SANS_SERIF, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_SIZE_ARROW, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_TEXT_ANCHOR, DOUBLE_QUOTE,
+    static String openG_TagWithId(String id) {
+        return String.format("<g id='%s'>\n", id);
+    }
+
+    static String drawArrow(String arrow) {
+        return String.format("<text x='%d' y='%d' fill='%s' font-family='%s' font-size='%d' " +
+                        "text-anchor='%s'>%s</text>\n",
+                0,
+                0,
+                COLOR_BLACK,
+                FONT_SANS_SERIF,
+                FONT_SIZE_ARROW,
+                FONT_TEXT_ANCHOR,
                 arrow);
     }
 
-    public static String drawLine(double x1, double y1, double x2, double y2) {
-        return String.format("<line " +
-                        "stroke=%s%s%s " +
-                        "stroke-width=%s%d%s " +
-                        "x1=%s%f%s " +
-                        "y1=%s%f%s " +
-                        "x2=%s%f%s " +
-                        "y2=%s%f%s " +
-                        "/>",
-                DOUBLE_QUOTE, COLOR_BLACK, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, STOKE_LINE_WIDTH, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, x1, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, y1, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, x2, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, y2, DOUBLE_QUOTE);
+    static String drawLine(double x1, double y1, double x2, double y2) {
+        return String.format("<line stroke='%s' stroke-width='%d' " +
+                        "x1='%f' y1='%f' x2='%f' y2='%f'/>\n",
+                COLOR_BLACK,
+                STOKE_LINE_WIDTH,
+                x1, y1,
+                x2, y2);
     }
 
-    public static String drawGraphVertex(double x, double y, String text) {
-        final String CIRCLE_TAG = String.format("%s%s<circle " +
-                        "cx=%s%f%s " +
-                        "cy=%s%f%s " +
-                        "r=%s%d%s " +
-                        "fill=%s%s%s " +
-                        "stroke=%s%s%s " +
-                        "stroke-width=%s%d%s" +
-                        "/>",
-                NEW_LINE, DOUBLE_TAB,
-                DOUBLE_QUOTE, x, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, y, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, VERTEX_RADIUS, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_WHITE, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_BLACK, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, STOKE_WIDTH, DOUBLE_QUOTE);
+    static String drawGraphVertex(double x, double y, double radius, String text) {
+        final String CIRCLE_TAG = String.format("<circle " +
+                        "cx='%f' cy='%f' r='%f' fill='%s' stroke='%s' stroke-width='%d'/>\n",
+                x, y,
+                radius,
+                COLOR_WHITE,
+                COLOR_BLACK,
+                STOKE_WIDTH);
 
-        final String TEXT_TAG = String.format("%s%s<text " +
-                        "x=%s%f%s " +
-                        "y=%s%f%s " +
-                        "fill=%s%s%s " +
-                        "font-family=%s%s%s " +
-                        "font-size=%s%d%s " +
-                        "text-anchor=%s%s%s" +
-                        ">" +
-                        "%s" +
-                        "</text>",
-                NEW_LINE, DOUBLE_TAB,
-                DOUBLE_QUOTE, x, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, y + 8, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_BLACK, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_SANS_SERIF, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, VERTEX_FONT_SIZE, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_TEXT_ANCHOR, DOUBLE_QUOTE,
+        final String TEXT_TAG = String.format("<text " +
+                        "x='%f' y='%f' fill='%s' font-family='%s' font-size='%f' text-anchor='%s'>%s</text>\n",
+                x, y + 4,
+                COLOR_BLACK,
+                FONT_SANS_SERIF,
+                VERTEX_FONT_SIZE,
+                FONT_TEXT_ANCHOR,
                 text);
 
         return CIRCLE_TAG + TEXT_TAG;
     }
 
-    public static String drawTreeVertex(double x, double y, String text, String vertexColor, boolean avlTree, String balanceHeight) {
-        final String CIRCLE_TAG = String.format("%s%s<circle " +
-                        "cx=%s%f%s " +
-                        "cy=%s%f%s " +
-                        "r=%s%d%s " +
-                        "fill=%s%s%s " +
-                        "stroke=%s%s%s " +
-                        "stroke-width=%s%d%s" +
-                        "/>",
-                NEW_LINE, DOUBLE_TAB,
-                DOUBLE_QUOTE, x, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, y, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, VERTEX_RADIUS, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, vertexColor, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_BLACK, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, STOKE_WIDTH, DOUBLE_QUOTE);
+    static String drawTreeVertex(double x, double y, double radius,String text, String vertexColor, boolean avlTree, String balanceHeight) {
+        final String CIRCLE_TAG = String.format("<circle " +
+                        "cx='%f' cy='%f' r='%f' fill='%s' stroke='%s' stroke-width='%d'/>\n",
+                x, y,
+                radius, vertexColor,
+                COLOR_BLACK,
+                STOKE_WIDTH);
 
-        final String TEXT_TAG = String.format("%s%s<text " +
-                        "x=%s%f%s " +
-                        "y=%s%f%s " +
-                        "fill=%s%s%s " +
-                        "font-family=%s%s%s " +
-                        "font-size=%s%d%s " +
-                        "text-anchor=%s%s%s" +
-                        ">" +
-                        "%s" +
-                        "</text>",
-                NEW_LINE, DOUBLE_TAB,
-                DOUBLE_QUOTE, x, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, y + 8, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, vertexColor.equals(COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_SANS_SERIF, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, VERTEX_FONT_SIZE, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_TEXT_ANCHOR, DOUBLE_QUOTE,
+        final String TEXT_TAG = String.format("<text " +
+                        "x='%f' y='%f' fill='%s' font-family='%s' font-size='%f' text-anchor='%s'>%s</text>\n",
+                x, y + 4,
+                vertexColor.equals(COLOR_WHITE) ? COLOR_BLACK : COLOR_WHITE,
+                FONT_SANS_SERIF,
+                VERTEX_FONT_SIZE,
+                FONT_TEXT_ANCHOR,
                 text);
 
-        final String BALANCE_AND_DEPTH_TEXT_TAG = String.format("%s%s<text " +
-                        "x=%s%f%s " +
-                        "y=%s%f%s " +
-                        "fill=%s%s%s " +
-                        "font-family=%s%s%s " +
-                        "font-size=%s%d%s " +
-                        "text-anchor=%s%s%s" +
-                        ">" +
-                        "%s" +
-                        "</text>",
-                NEW_LINE, DOUBLE_TAB,
-                DOUBLE_QUOTE, x + 35, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, y - 15, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_BLUE, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_SANS_SERIF, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_BALANCE_SIZE_TEXT, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_TEXT_ANCHOR, DOUBLE_QUOTE,
+        final String BALANCE_AND_DEPTH_TEXT_TAG = String.format("<text " +
+                        "x='%f' y='%f' fill='%s' font-family='%s' font-size='%d' text-anchor='%s'>%s</text>\n",
+                x + 35,
+                y - 15,
+                COLOR_BLUE,
+                FONT_SANS_SERIF,
+                FONT_BALANCE_SIZE_TEXT,
+                FONT_TEXT_ANCHOR,
                 balanceHeight);
 
-        return CIRCLE_TAG + TEXT_TAG + (avlTree ? BALANCE_AND_DEPTH_TEXT_TAG : "") + NEW_LINE;
+        return CIRCLE_TAG + TEXT_TAG + (avlTree ? BALANCE_AND_DEPTH_TEXT_TAG : "");
     }
 
-    public static String drawSquare(int x, int y, int height, int width, String text, DataStructure dataStructure) {
-        final String RECT_TAG = String.format("%s%s<rect " +
-                        "x=%s%d%s " +
-                        "y=%s%d%s " +
-                        "height=%s%d%s " +
-                        "width=%s%d%s " +
-                        "fill=%s%s%s " +
-                        "stroke=%s%s%s " +
-                        "stroke-width=%s%d%s" +
-                        "/>",
-                NEW_LINE, DOUBLE_TAB,
-                DOUBLE_QUOTE, x, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, y, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, height, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, width, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_WHITE, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_BLACK, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, STOKE_WIDTH, DOUBLE_QUOTE);
+    static String drawSquare(int x, int y, int height, int width, String text, DataStructure dataStructure) {
+        final String RECT_TAG = String.format("<rect " +
+                        "x='%d' y='%d' height='%d' width='%d' fill='%s' stroke='%s' stroke-width='%d'/>\n",
+                x, y,
+                height,
+                width,
+                COLOR_WHITE, COLOR_BLACK, STOKE_WIDTH);
 
-        final String TEXT_TAG = String.format("%s%s<text " +
-                        "x=%s%d%s " +
-                        "y=%s%d%s " +
-                        "fill=%s%s%s " +
-                        "font-family=%s%s%s " +
-                        "font-size=%s%d%s " +
-                        "text-anchor=%s%s%s" +
-                        ">" +
-                        "%s" +
-                        "</text>",
-                NEW_LINE, DOUBLE_TAB,
-                DOUBLE_QUOTE, dataStructure != DataStructure.STACK ? x + 30 : 40, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, dataStructure != DataStructure.STACK ? 35 : y + 25, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, COLOR_BLACK, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_SANS_SERIF, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_SIZE_TEXT, DOUBLE_QUOTE,
-                DOUBLE_QUOTE, FONT_TEXT_ANCHOR, DOUBLE_QUOTE,
+        final String TEXT_TAG = String.format("<text " +
+                        "x='%d' y='%d' fill='%s' font-family='%s' font-size='%d' text-anchor='%s'>%s</text>\n",
+                dataStructure != DataStructure.STACK ? x + 30 : 40,
+                dataStructure != DataStructure.STACK ? 35 : y + 25,
+                COLOR_BLACK,
+                FONT_SANS_SERIF,
+                FONT_SIZE_TEXT,
+                FONT_TEXT_ANCHOR,
                 text);
 
-        return OPEN_G_TAG + RECT_TAG + TEXT_TAG + NEW_LINE + CLOSE_G_TAG;
+        return RECT_TAG + TEXT_TAG;
     }
 
-    public static class Defs {
-        public static String createDefs(String id, String inside) {
-            return String.format("%s%s%s%s%s%s%s%s%s%s%s%s%s",
-                    TAB, OPEN_DEFS_TAG,
-                    NEW_LINE, DOUBLE_TAB, openG_TagWithId(id),
-                    TRIPLE_TAB,
-                    inside,
-                    NEW_LINE, TAB, CLOSE_G_TAG,
-                    NEW_LINE,
-                    TAB,
-                    CLOSE_DEFS_TAG);
+    static class Defs {
+        static String createDefs(String id, String inside) {
+            return OPEN_DEFS_TAG +
+                    openG_TagWithId(id) +
+                    inside +
+                    CLOSE_G_TAG +
+                    CLOSE_DEFS_TAG;
         }
 
-        public static String createUseTag(String id, int x, int y) {
-            return String.format("%s<use xlink:href=%s#%s%s " +
-                            "x=%s%d%s y=%s%d%s />",
-                    TAB,
-                    DOUBLE_QUOTE, id, DOUBLE_QUOTE,
-                    DOUBLE_QUOTE, x, DOUBLE_QUOTE,
-                    DOUBLE_QUOTE, y, DOUBLE_QUOTE);
+        static String createUseTag(String id, int x, int y) {
+            return String.format("<use xlink:href='#%s' x='%d' y='%d' />\n", id, x, y);
         }
     }
 

@@ -19,7 +19,7 @@ import mx.unam.ciencias.edd.proyecto2.DataStructure;
  * @version 1.0
  * @since 13/05/2016.
  */
-public class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
+class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
 
     private ArbolBinario<T> binaryTree;
     private DataStructure dataStructure;
@@ -28,7 +28,7 @@ public class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
     private int height;
     private int depth;
 
-    public SVG_Tree(Lista<T> elementos, DataStructure dataStructure) {
+    SVG_Tree(Lista<T> elementos, DataStructure dataStructure) {
         this.dataStructure = dataStructure;
         switch (dataStructure) {
             case COMPLETE_BINARY_TREE:
@@ -58,22 +58,20 @@ public class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
     }
 
     @Override public String drawSVG() {
+        int vertexRadius = SVG_Util.getVertexRadius(binaryTree);
         depth = binaryTree.profundidad() == 0 ? 1 : binaryTree.profundidad();
         height = 100 + depth * 100;
-        width = (int) (Math.pow(2, depth) * 60);
+        width = (int) (Math.pow(2, depth) * vertexRadius*2);
 
         StringBuilder builder = new StringBuilder();
         builder.append(SVG_Util.XML_PROLOG);
-        builder.append(SVG_Util.NEW_LINE);
         builder.append(SVG_Util.startSVGAndPutHeightWidth(height, width));
         builder.append(SVG_Util.OPEN_G_TAG);
         if (!binaryTree.esVacio()) {
             builder.append(drawLines(binaryTree.raiz(), (width / 2) / 2, width / 2, 50));
-            builder.append(drawVertices(binaryTree.raiz(), (width / 2) / 2, width / 2, 50));
+            builder.append(drawVertices(binaryTree.raiz(), (width / 2) / 2, width / 2, 50, vertexRadius));
         }
-        builder.append(SVG_Util.NEW_LINE);
         builder.append(SVG_Util.CLOSE_G_TAG);
-        builder.append(SVG_Util.NEW_LINE);
         builder.append(SVG_Util.closeSVG());
         return builder.toString();
     }
@@ -87,18 +85,18 @@ public class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
      * @param y                La coordenada <b><i>y</i></b>, en cada llamada recusiva aumentará un tamaño constante.
      * @return Un código SVG con las vértices de arbol.
      */
-    private String drawVertices(VerticeArbolBinario vertex, double decrement, double fatherCoordinate, double y) {
+    private String drawVertices(VerticeArbolBinario vertex, double decrement, double fatherCoordinate, double y,double radius) {
         String s = "";
         if (vertex != null) {
             String balance = getHeightAndBalance(vertex.toString());
-            s += SVG_Util.drawTreeVertex(fatherCoordinate, y, vertex.get().toString(), getVertexColor(vertex), balance != null, balance);
+            s += SVG_Util.drawTreeVertex(fatherCoordinate, y, radius,vertex.get().toString(), getVertexColor(vertex), balance != null, balance);
             if (vertex.hayIzquierdo() && vertex.hayDerecho())
-                s += drawVertices(vertex.getIzquierdo(), decrement / 2, fatherCoordinate - decrement, y + 100) +
-                        drawVertices(vertex.getDerecho(), decrement / 2, fatherCoordinate + decrement, y + 100);
+                s += drawVertices(vertex.getIzquierdo(), decrement / 2, fatherCoordinate - decrement, y + 100,radius) +
+                        drawVertices(vertex.getDerecho(), decrement / 2, fatherCoordinate + decrement, y + 100,radius);
             else if (vertex.hayIzquierdo())
-                s += drawVertices(vertex.getIzquierdo(), decrement / 2, fatherCoordinate - decrement, y + 100);
+                s += drawVertices(vertex.getIzquierdo(), decrement / 2, fatherCoordinate - decrement, y + 100,radius);
             else if (vertex.hayDerecho())
-                s += drawVertices(vertex.getDerecho(), decrement / 2, fatherCoordinate + decrement, y + 100);
+                s += drawVertices(vertex.getDerecho(), decrement / 2, fatherCoordinate + decrement, y + 100,radius);
         }
         return s;
     }
@@ -131,7 +129,7 @@ public class SVG_Tree<T extends Comparable<T>> implements SVG_Graficable {
     /**
      * Método que devuelve el color de un vértice.
      *
-     * @param s El método {@link VerticeArbolBinario#toString()} que devuelve el toString() del vértice.
+     * @param vertex El método {@link VerticeArbolBinario#toString()} que devuelve el toString() del vértice.
      * @return Color {@link SVG_Util#COLOR_RED} o {@link SVG_Util#COLOR_BLACK} en caso de ser un vertice de un
      * <b>Arbol rojinegro</b>, {@link SVG_Util#COLOR_WHITE} en otro caso.
      */
